@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Episode: Valentine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient layers -->
+  <canvas id="stars"></canvas>
+  <canvas id="rain"></canvas>
+
+  <main class="story" id="story">
+
+    <!-- Page 0 -->
+    <section class="page gate" data-page="0">
+      <div class="card">
+        <h1>Would you be my Valentine?</h1>
+        <p class="sub">Choose carefully, vampire. 🦇</p>
+
+        <div class="btnRow" id="btnRow">
+          <button id="yesBtn" class="btn primary">Yes</button>
+          <button id="noBtn" class="btn ghost" aria-label="No">No</button>
+        </div>
+
+        <p class="hint">Scroll ↓</p>
+      </div>
+    </section>
+
+    <!-- Page 1 -->
+    <section class="page" data-page="1">
+      <div class="card">
+        <div class="kicker">Page 1</div>
+        <h2>Once upon a time…</h2>
+        <p class="lead">
+          In Scotland, there was a girl people called a vampire —
+          not because she was scary…
+          but because she belonged to the night in a quiet, beautiful way.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 2 -->
+    <section class="page" data-page="2">
+      <div class="card">
+        <div class="kicker">Page 2</div>
+        <h2>Her secret gift</h2>
+        <p class="lead">
+          When she missed a feeling… she could slip through time and bring it back.
+        </p>
+        <p class="dim">
+          Sometimes it looked like a song that hadn’t been written yet.
+          And somehow… it always sounded a little like Billie Eilish.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 3 -->
+    <section class="page" data-page="3">
+      <div class="card">
+        <div class="kicker">Page 3</div>
+        <h2>The dance</h2>
+        <p class="lead">
+          One evening, she danced in a brown dress —
+          and the world didn’t interrupt her.
+        </p>
+        <p class="dim">
+          A deer watched from the trees. Birds turned in slow circles.
+          Even the wind softened, like it was trying not to break the moment.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 4 -->
+    <section class="page" data-page="4">
+      <div class="card">
+        <div class="kicker">Page 4</div>
+        <h2>And then… a man noticed.</h2>
+        <p class="lead">
+          He didn’t rush in. He didn’t want to ruin the magic.
+        </p>
+        <p class="dim">
+          He just stood there, watching —
+          like he’d accidentally found something rare.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 5 -->
+    <section class="page" data-page="5">
+      <div class="card">
+        <div class="kicker">Page 5</div>
+        <h2>First words</h2>
+        <p class="lead">
+          He stepped closer, gentle as a whisper.
+          <span class="quote">“Selam,”</span> he said.
+          <span class="quote">“You look so free when you dance.”</span>
+        </p>
+        <p class="dim">
+          She tilted her head, amused:
+          <span class="quote">“Çok mu çok?”</span>
+          <br/>
+          He smiled:
+          <span class="quote">“Çok… çok.”</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 6 -->
+    <section class="page" data-page="6">
+      <div class="card">
+        <div class="kicker">Page 6</div>
+        <h2>A small break</h2>
+        <p class="lead">“I need a break… I get hungry easily.”</p>
+        <p class="dim">
+          The man reached into nowhere —
+          first: a banana 🍌
+          then: dark chocolate 🍫
+          then: a latte ☕
+        </p>
+        <p class="tiny">She took them like it was the most normal magic in the world… and smiled.</p>
+      </div>
+    </section>
+
+    <!-- Page 7 -->
+    <section class="page" data-page="7">
+      <div class="card">
+        <div class="kicker">Page 7</div>
+        <h2>Walking & talking</h2>
+        <p class="lead">
+          They walked through Scotland like the streets were holding their secret.
+        </p>
+        <p class="dim">
+          Talking. Teasing. Pausing.
+          The kind of closeness that doesn’t ask permission —
+          it just happens… and suddenly you don’t want it to end.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 8 -->
+    <section class="page" data-page="8">
+      <div class="card">
+        <div class="kicker">Page 8</div>
+        <h2>“Let me show you a sky that feels endless.”</h2>
+        <p class="lead">
+          A wind turned the page.
+          Scotland faded into silence —
+          and the desert appeared: Türkmenistan at night.
+        </p>
+        <p class="dim">
+          As if the story approved… their clothes changed —
+          Türkmen tradition, warm and beautiful —
+          not a costume… more like destiny.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page 9 -->
+    <section class="page" data-page="9">
+      <div class="card">
+        <div class="kicker">Page 9</div>
+        <h2>Stars, then rain</h2>
+        <p class="lead">
+          Under a sky full of stars, the man whispered:
+          <span class="quote">“I love the view.”</span>
+        </p>
+        <p class="dim">
+          She smiled:
+          <span class="quote">“Yeah… it’s beautiful. I wish it could rain… just a little.”</span>
+        </p>
+        <p class="lead emph">And then — a light rain started.</p>
+        <p class="dim">A hug. A pause. And a kiss.</p>
+      </div>
+    </section>
+
+    <!-- Page 10 -->
+    <section class="page end" data-page="10">
+      <div class="card">
+        <div class="kicker">Final</div>
+        <h2>To be continued…</h2>
+
+        <button id="psBtn" class="btn ghost">PS (tap)</button>
+        <p id="psText" class="ps hidden">If you smiled once, you owe me a call.</p>
+
+        <div class="sig">— N &amp; G</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
