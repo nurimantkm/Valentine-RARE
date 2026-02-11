@@ -1,31 +1,31 @@
-// Valentine Book - Fixed Version
+// Valentine Book - Smooth Page Curl Animation
 document.addEventListener('DOMContentLoaded', () => {
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
-    const introScreen = document.getElementById('introScreen');
+    const intro = document.getElementById('intro');
     const bookContainer = document.getElementById('bookContainer');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const pageIndicator = document.getElementById('pageIndicator');
     
-    let currentSpread = 1;
+    let currentSpread = 0;
     const spreads = document.querySelectorAll('.page-spread');
     const totalSpreads = spreads.length;
 
+    // Initialize - show first spread
+    if (spreads.length > 0) {
+        spreads[0].classList.add('current');
+    }
+
     // Yes button - open the book with animation
     yesBtn.addEventListener('click', () => {
-        // Hide intro screen
-        introScreen.classList.add('hidden');
+        intro.classList.add('hidden');
         
         setTimeout(() => {
-            introScreen.style.display = 'none';
-            bookContainer.style.display = 'block';
-            
-            // Trigger book opening animation
-            setTimeout(() => {
-                bookContainer.classList.add('visible');
-            }, 100);
-        }, 1200);
+            bookContainer.classList.add('visible');
+            currentSpread = 0;
+            updateNavigation();
+        }, 800);
     });
 
     // No button - playful escape
@@ -35,12 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
         noClickCount++;
         
         if (noClickCount >= 3) {
-            // After 3 clicks, just say yes
             yesBtn.click();
             return;
         }
         
-        // Move button to random position
         const maxX = window.innerWidth - noBtn.offsetWidth - 100;
         const maxY = window.innerHeight - noBtn.offsetHeight - 100;
         
@@ -51,72 +49,88 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.left = randomX + 'px';
         noBtn.style.top = randomY + 'px';
         noBtn.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-        
-        // Shake intro card
-        const introCard = document.querySelector('.intro-card');
-        introCard.style.animation = 'shake 0.5s';
-        setTimeout(() => {
-            introCard.style.animation = '';
-        }, 500);
     });
 
     // Next page
     nextBtn.addEventListener('click', () => {
-        if (currentSpread < totalSpreads) {
-            goToSpread(currentSpread + 1);
+        if (currentSpread < totalSpreads - 1) {
+            flipToNext();
         }
     });
 
     // Previous page
     prevBtn.addEventListener('click', () => {
-        if (currentSpread > 1) {
-            goToSpread(currentSpread - 1);
+        if (currentSpread > 0) {
+            flipToPrevious();
         }
     });
 
-    function goToSpread(targetSpread) {
-        if (targetSpread === currentSpread || targetSpread < 1 || targetSpread > totalSpreads) {
-            return;
-        }
+    function flipToNext() {
+        const current = spreads[currentSpread];
+        const next = spreads[currentSpread + 1];
         
-        const currentElement = spreads[currentSpread - 1];
-        const targetElement = spreads[targetSpread - 1];
+        // Flip current page away
+        current.classList.remove('current');
+        current.classList.add('flipping-out');
         
-        // Remove active from current
-        currentElement.classList.remove('active');
-        currentElement.classList.add('flipping-out');
-        
-        // Show target after a delay
         setTimeout(() => {
-            currentElement.classList.remove('flipping-out');
-            currentElement.style.opacity = '0';
+            current.classList.remove('flipping-out');
+            current.classList.add('flipped');
+            next.classList.add('current');
             
-            targetElement.classList.add('active');
-            targetElement.classList.add('flipping-in');
+            currentSpread++;
+            updateNavigation();
+            checkRainEffect();
+        }, 800);
+    }
+
+    function flipToPrevious() {
+        const current = spreads[currentSpread];
+        const previous = spreads[currentSpread - 1];
+        
+        // Flip previous page back
+        previous.classList.remove('flipped');
+        previous.classList.add('flipping-out');
+        
+        // Reverse animation
+        setTimeout(() => {
+            previous.style.animation = 'pageFlipIn 0.8s ease-in-out forwards';
             
             setTimeout(() => {
-                targetElement.classList.remove('flipping-in');
-            }, 1200);
-        }, 600);
-        
-        currentSpread = targetSpread;
-        updateNavigation();
-        
-        // Add rain effect on kiss scene
-        if (currentSpread === 9) {
-            createRainEffect();
-        }
+                previous.style.animation = '';
+                previous.classList.remove('flipping-out');
+                previous.classList.add('current');
+                current.classList.remove('current');
+                
+                currentSpread--;
+                updateNavigation();
+                checkRainEffect();
+            }, 800);
+        }, 50);
     }
 
     function updateNavigation() {
-        prevBtn.disabled = currentSpread === 1;
-        nextBtn.disabled = currentSpread === totalSpreads;
-        pageIndicator.textContent = `${currentSpread} / ${totalSpreads}`;
+        prevBtn.disabled = currentSpread === 0;
+        nextBtn.disabled = currentSpread === totalSpreads - 1;
+        pageIndicator.textContent = `${currentSpread + 1} / ${totalSpreads}`;
+    }
+
+    function checkRainEffect() {
+        const rain = document.querySelector('.rain');
+        if (currentSpread === 8) { // Kiss scene (Chapter 9)
+            if (!rain) {
+                createRainEffect();
+            } else {
+                rain.classList.add('active');
+            }
+        } else if (rain) {
+            rain.classList.remove('active');
+        }
     }
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (bookContainer.style.display === 'none') return;
+        if (!bookContainer.classList.contains('visible')) return;
         
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
             nextBtn.click();
@@ -128,90 +142,68 @@ document.addEventListener('DOMContentLoaded', () => {
     // Touch/swipe support
     let touchStartX = 0;
     let touchEndX = 0;
-    let touchStartY = 0;
-    let touchEndY = 0;
 
     bookContainer.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
 
     bookContainer.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
         handleSwipe();
     }, { passive: true });
 
     function handleSwipe() {
         const swipeThreshold = 50;
-        const horizontalDiff = touchEndX - touchStartX;
-        const verticalDiff = Math.abs(touchEndY - touchStartY);
+        const diff = touchEndX - touchStartX;
         
-        // Only register horizontal swipes
-        if (verticalDiff < 100) {
-            if (horizontalDiff < -swipeThreshold) {
-                nextBtn.click();
-            } else if (horizontalDiff > swipeThreshold) {
-                prevBtn.click();
-            }
+        if (diff < -swipeThreshold) {
+            nextBtn.click();
+        } else if (diff > swipeThreshold) {
+            prevBtn.click();
         }
     }
 
     // Rain effect for the kiss scene
-    let rainCreated = false;
     function createRainEffect() {
-        if (rainCreated) return;
-        rainCreated = true;
+        const rain = document.createElement('div');
+        rain.className = 'rain active';
         
-        const rainContainer = document.createElement('div');
-        rainContainer.className = 'rain-effect';
-        rainContainer.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
-        `;
-        
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 100; i++) {
             const drop = document.createElement('div');
-            drop.style.cssText = `
-                position: absolute;
-                width: 2px;
-                height: 20px;
-                background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
-                left: ${Math.random() * 100}%;
-                top: -20px;
-                animation: fall ${2 + Math.random() * 2}s linear infinite;
-                animation-delay: ${Math.random() * 2}s;
-                opacity: ${0.3 + Math.random() * 0.5};
-            `;
-            rainContainer.appendChild(drop);
+            drop.className = 'raindrop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDuration = (1 + Math.random()) + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            rain.appendChild(drop);
         }
         
-        document.body.appendChild(rainContainer);
+        document.body.appendChild(rain);
     }
 
-    // Add animations
+    // Add page flip in animation
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateY(0px); }
-            25% { transform: translateY(0px) translateX(-8px) rotate(-2deg); }
-            75% { transform: translateY(0px) translateX(8px) rotate(2deg); }
+        @keyframes pageFlipIn {
+            0% { transform: rotateY(-180deg); }
+            100% { transform: rotateY(0deg); }
         }
     `;
     document.head.appendChild(style);
 
-    // Initialize navigation
-    updateNavigation();
+    // Floating particles
+    createFloatingParticles();
+    
+    function createFloatingParticles() {
+        const particles = document.querySelector('.particles');
+        if (!particles) return;
+        
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (4 + Math.random() * 4) + 's';
+            particles.appendChild(particle);
+        }
+    }
 });
