@@ -7,37 +7,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Stars background -->
+    <!-- Stars and particles background -->
     <div class="stars"></div>
+    <div class="particles"></div>
 
-    <!-- Initial Question Screen -->
-    <div id="intro" class="intro-screen">
-        <div class="book-preview">
-            <div class="book-cover-left"></div>
-            <div class="book-cover-right">
-                <div class="intro-content">
-                    <div class="intro-header">N & G</div>
-                    <h1>Would you be my Valentine?</h1>
-                    <p class="intro-subtitle">Choose carefully, vampire. 🧛🏻‍♀️</p>
-                    <div class="intro-buttons">
-                        <button id="yesBtn" class="btn-yes">Yes</button>
-                        <button id="noBtn" class="btn-no">No</button>
-                    </div>
-                    <div class="scroll-hint">Scroll ↓</div>
-                </div>
+    <!-- Intro Screen (Separate from book) -->
+    <div id="introScreen" class="intro-screen">
+        <div class="intro-card">
+            <div class="intro-header">N & G</div>
+            <h1>Would you be my Valentine?</h1>
+            <p class="intro-subtitle">Choose carefully, vampire. 🧛🏻‍♀️</p>
+            <div class="intro-buttons">
+                <button id="yesBtn" class="btn-yes">Yes</button>
+                <button id="noBtn" class="btn-no">No</button>
             </div>
+            <div class="scroll-hint">Scroll ↓</div>
         </div>
     </div>
 
-    <!-- Book Container -->
+    <!-- Book Container (Hidden initially) -->
     <div id="bookContainer" class="book-container" style="display: none;">
-        <div class="book">
-            <!-- Left cover -->
-            <div class="book-cover book-cover-left"></div>
-            
+        <div class="book" id="book">
             <!-- Page spreads -->
-            <div class="page-spread" id="spread-1">
-                <!-- Left page -->
+            <div class="page-spread active" data-spread="1">
                 <div class="page page-left">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER I</div>
@@ -47,17 +39,16 @@
                     </div>
                     <div class="page-number">1</div>
                 </div>
-                <!-- Right page -->
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/01_intro.png" alt="Scotland castle">
-                        <p class="image-caption">In Scotland, there was a girl people called a vampire — not because she was scary… but because she belonged to the night in a quiet, beautiful way.</p>
+                        <img class="page-illustration" src="./assets/illustrations/01_intro.png" alt="Scotland castle" loading="lazy">
+                        <p class="image-caption">In Scotland, there was a girl people called a vampire...</p>
                     </div>
                     <div class="page-number">2</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-2">
+            <div class="page-spread" data-spread="2">
                 <div class="page page-left">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER II</div>
@@ -69,71 +60,70 @@
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/02_music.png" alt="Music">
+                        <img class="page-illustration" src="./assets/illustrations/02_music.png" alt="Music" loading="lazy">
                     </div>
                     <div class="page-number">4</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-3">
+            <div class="page-spread" data-spread="3">
                 <div class="page page-left">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER III</div>
                         <h2>Çi steedə...</h2>
                         <p>One evening, she danced in a brown dress —</p>
                         <p>and the world didn't interrupt her.</p>
-                        <p>A deer watched from the trees.</p>
-                        <p>Birds turned in slow circles.</p>
-                        <p>Even the wind softened,</p>
-                        <p>like it was trying not to break the moment.</p>
+                        <p>A deer watched from the trees. Birds turned in slow circles. Even the wind softened, like it was trying not to break the moment.</p>
                     </div>
                     <div class="page-number">5</div>
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/03_dance.png" alt="Dancing">
+                        <img class="page-illustration" src="./assets/illustrations/03_dance.png" alt="Dancing" loading="lazy">
                     </div>
                     <div class="page-number">6</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-4">
+            <div class="page-spread" data-spread="4">
                 <div class="page page-left">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER IV</div>
                         <h2>"You look so free when you dance..."</h2>
+                        <p>A man stepped into the scene — not to interrupt, only to witness.</p>
+                        <p>He watched her dance and felt something impossible: a calm kind of "oh… there you are."</p>
                     </div>
                     <div class="page-number">7</div>
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/04_watching.png" alt="Watching">
+                        <img class="page-illustration" src="./assets/illustrations/04_watching.png" alt="Watching" loading="lazy">
                         <p class="image-caption">"Çok... çok.."</p>
-                        <p class="signature">— N & G</p>
                     </div>
                     <div class="page-number">8</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-5">
+            <div class="page-spread" data-spread="5">
                 <div class="page page-left">
                     <div class="page-content">
-                        <h2>He laughed softly and sighed.</h2>
+                        <div class="chapter-label">CHAPTER VI</div>
+                        <h2>Emergency snacks</h2>
+                        <p>He laughed softly and sighed.</p>
                         <p>"Y need a break..."</p>
-                        <p>The man reached into nowhere —</p>
-                        <p>first.. a banana 🍌</p>
+                        <p>The man reached into nowhere — first.. a banana 🍌</p>
                     </div>
                     <div class="page-number">9</div>
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/06_food.png" alt="Food">
+                        <img class="page-illustration" src="./assets/illustrations/06_food.png" alt="Food" loading="lazy">
                     </div>
                     <div class="page-number">10</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-6">
+            <div class="page-spread" data-spread="6">
                 <div class="page page-left">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER VII</div>
@@ -145,13 +135,13 @@
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/07_walk.png" alt="Walking">
+                        <img class="page-illustration" src="./assets/illustrations/07_walk.png" alt="Walking" loading="lazy">
                     </div>
                     <div class="page-number">12</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-7">
+            <div class="page-spread" data-spread="7">
                 <div class="page page-left">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER VIII</div>
@@ -163,16 +153,16 @@
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/08_offer.png" alt="Offer">
+                        <img class="page-illustration" src="./assets/illustrations/08_offer.png" alt="Offer" loading="lazy">
                     </div>
                     <div class="page-number">14</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-8">
+            <div class="page-spread" data-spread="8">
                 <div class="page page-left">
                     <div class="page-content">
-                        <div class="chapter-label">CHAPTER IX-X</div>
+                        <div class="chapter-label">CHAPTER X</div>
                         <h2>Türkmenland</h2>
                         <p>Scotland faded… and Turkmenistan arrived — wide desert, open sky.</p>
                         <p>Even their clothes changed — traditional Türkmen dress, like the story decided to respect the land.</p>
@@ -181,16 +171,16 @@
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/10_turkmen.png" alt="Turkmenistan">
+                        <img class="page-illustration" src="./assets/illustrations/10_turkmen.png" alt="Turkmenistan" loading="lazy">
                     </div>
                     <div class="page-number">16</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-9">
+            <div class="page-spread" data-spread="9">
                 <div class="page page-left">
                     <div class="page-content">
-                        <div class="chapter-label">CHAPTER XI-XII</div>
+                        <div class="chapter-label">CHAPTER XII</div>
                         <h2>And then the rain agreed</h2>
                         <p>She said: "You know… I like rain too."</p>
                         <p>A light rain started like a blessing. They looked at each other, smiled… hugged… and kissed.</p>
@@ -199,13 +189,13 @@
                 </div>
                 <div class="page page-right">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/12_rain.png" alt="Kiss in rain">
+                        <img class="page-illustration" src="./assets/illustrations/12_rain.png" alt="Kiss in rain" loading="lazy">
                     </div>
                     <div class="page-number">18</div>
                 </div>
             </div>
 
-            <div class="page-spread" id="spread-10">
+            <div class="page-spread" data-spread="10">
                 <div class="page page-left">
                     <div class="page-content ending">
                         <div class="chapter-label">END</div>
@@ -223,9 +213,6 @@
                     <div class="page-number">20</div>
                 </div>
             </div>
-
-            <!-- Right cover -->
-            <div class="book-cover book-cover-right"></div>
         </div>
 
         <!-- Navigation -->
