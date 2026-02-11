@@ -11,7 +11,7 @@
     <div class="stars"></div>
     <div class="particles"></div>
 
-    <!-- Intro Screen (Separate from book) -->
+    <!-- Intro Screen -->
     <div id="introScreen" class="intro-screen">
         <div class="intro-card">
             <h1>Would you be my Valentine?</h1>
@@ -23,201 +23,278 @@
         </div>
     </div>
 
-    <!-- Book Container (Hidden initially) -->
-    <div id="bookContainer" class="book-container">
-        <div class="book" id="book">
-            <!-- Page spreads -->
-            <div class="page-spread active" data-spread="1">
-                <div class="page page-left">
+    <!-- Book Container -->
+    <div id="bookContainer" class="book-container hidden">
+        <!-- Navigation Buttons -->
+        <button id="prevBtn" class="nav-btn nav-prev" aria-label="Previous page">←</button>
+        <button id="nextBtn" class="nav-btn nav-next" aria-label="Next page">→</button>
+
+        <!-- Flip Book -->
+        <div class="flip-book">
+            <!-- Hidden checkboxes to control page states -->
+            <input type="checkbox" id="page1_check" class="page-checkbox">
+            <input type="checkbox" id="page2_check" class="page-checkbox">
+            <input type="checkbox" id="page3_check" class="page-checkbox">
+            <input type="checkbox" id="page4_check" class="page-checkbox">
+            <input type="checkbox" id="page5_check" class="page-checkbox">
+            <input type="checkbox" id="page6_check" class="page-checkbox">
+            <input type="checkbox" id="page7_check" class="page-checkbox">
+            <input type="checkbox" id="page8_check" class="page-checkbox">
+            <input type="checkbox" id="page9_check" class="page-checkbox">
+            <input type="checkbox" id="page10_check" class="page-checkbox">
+
+            <!-- Page 1 -->
+            <div class="page" id="page1">
+                <div class="page-front">
+                    <label for="page1_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER I</div>
                         <h2>Once upon a feeling…</h2>
                         <p>There was a girl in a Scotland-vibe castle — mist, forests, old stones… and she didn't time-travel for places.</p>
                         <p>She time-traveled for <strong>emotions</strong>. Sometimes she borrowed a future feeling the way people borrow songs… (even before the player was invented).</p>
                     </div>
-                    <div class="page-number">1</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page1_check" class="page-flipper"></label>
                     <div class="page-content">
                         <img class="page-illustration" src="./assets/illustrations/01_intro.png" alt="Scotland castle" loading="lazy">
-                        <p class="image-caption">In Scotland, there was a girl people called a vampire...</p>
                     </div>
-                    <div class="page-number">2</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="2">
-                <div class="page page-left">
+            <!-- Page 2 -->
+            <div class="page" id="page2">
+                <div class="page-front">
+                    <label for="page2_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER II</div>
                         <h2>She stole a song from tomorrow</h2>
                         <p>Sometimes she would appear for a second in the future, grab a song, and return like nothing happened.</p>
-                        <p>Billy Eilish in the air, rain in the distance… and a smile that looked like it knew secrets.</p>
+                        <p>Billy Eilish in the air, rain in the distance... and a smile that looked like it knew something the world didn't.</p>
                     </div>
-                    <div class="page-number">3</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page2_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/02_music.png" alt="Music" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/02_music.png" alt="Music and time travel" loading="lazy">
                     </div>
-                    <div class="page-number">4</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="3">
-                <div class="page page-left">
+            <!-- Page 3 -->
+            <div class="page" id="page3">
+                <div class="page-front">
+                    <label for="page3_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER III</div>
-                        <h2>Çi steedə...</h2>
-                        <p>One evening, she danced in a brown dress —</p>
-                        <p>and the world didn't interrupt her.</p>
+                        <h2>Çi steede...</h2>
+                        <p>One evening, she danced in a brown dress — and the world didn't interrupt her.</p>
                         <p>A deer watched from the trees. Birds turned in slow circles. Even the wind softened, like it was trying not to break the moment.</p>
                     </div>
-                    <div class="page-number">5</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page3_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/03_dance.png" alt="Dancing" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/03_dance.png" alt="Dancing in the forest" loading="lazy">
                     </div>
-                    <div class="page-number">6</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="4">
-                <div class="page page-left">
+            <!-- Page 4 -->
+            <div class="page" id="page4">
+                <div class="page-front">
+                    <label for="page4_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER IV</div>
-                        <h2>"You look so free when you dance..."</h2>
+                        <h2>And then... I saw you.</h2>
                         <p>A man stepped into the scene — not to interrupt, only to witness.</p>
-                        <p>He watched her dance and felt something impossible: a calm kind of "oh… there you are."</p>
+                        <p>He watched her dance and felt something impossible: a calm kind of "oh... there you are."</p>
                     </div>
-                    <div class="page-number">7</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page4_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/04_watching.png" alt="Watching" loading="lazy">
-                        <p class="image-caption">"Çok... çok.."</p>
+                        <img class="page-illustration" src="./assets/illustrations/04_watching.png" alt="Watching her dance" loading="lazy">
                     </div>
-                    <div class="page-number">8</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="5">
-                <div class="page page-left">
+            <!-- Page 5 -->
+            <div class="page" id="page5">
+                <div class="page-front">
+                    <label for="page5_check" class="page-flipper"></label>
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER V</div>
+                        <h2>...</h2>
+                        <p>"You look so free when you dance."</p>
+                        <p>She stopped mid-spin. Looked at him. Laughed.</p>
+                        <p>"Çok mu çok?"</p>
+                        <p>He didn't understand the words, but he understood the smile.</p>
+                    </div>
+                </div>
+                <div class="page-back">
+                    <label for="page5_check" class="page-flipper"></label>
+                    <div class="page-content">
+                        <img class="page-illustration" src="./assets/illustrations/05_cokmu.png" alt="First conversation" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 6 -->
+            <div class="page" id="page6">
+                <div class="page-front">
+                    <label for="page6_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER VI</div>
-                        <h2>Emergency snacks</h2>
+                        <h2>Emergency snacks for a vampire</h2>
                         <p>He laughed softly and sighed.</p>
                         <p>"Y need a break..."</p>
                         <p>The man reached into nowhere — first.. a banana 🍌</p>
+                        <p>Then bread. Then cheese. Then a small jar of honey that shouldn't have fit in any pocket.</p>
                     </div>
-                    <div class="page-number">9</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page6_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/06_food.png" alt="Food" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/06_food.png" alt="Sharing food" loading="lazy">
                     </div>
-                    <div class="page-number">10</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="6">
-                <div class="page page-left">
+            <!-- Page 7 -->
+            <div class="page" id="page7">
+                <div class="page-front">
+                    <label for="page7_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER VII</div>
-                        <h2>Scotland, but warmer</h2>
-                        <p>They walked and talked — the kind of talking where time feels softer.</p>
-                        <p>The castle stayed behind, but the mood followed. Like a fairytale that decided to be real.</p>
+                        <h2>Gravity was just a suggestion</h2>
+                        <p>They walked. The castle stayed behind, but the mood followed.</p>
+                        <p>Somewhere between the third tree and the fourth joke, she realized: she wasn't borrowing this feeling from the future.</p>
+                        <p>She was living it.</p>
                     </div>
-                    <div class="page-number">11</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page7_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/07_walk.png" alt="Walking" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/07_walk.png" alt="Walking together" loading="lazy">
                     </div>
-                    <div class="page-number">12</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="7">
-                <div class="page page-left">
+            <!-- Page 8 -->
+            <div class="page" id="page8">
+                <div class="page-front">
+                    <label for="page8_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER VIII</div>
-                        <h2>The offer</h2>
-                        <p>He said: "Let's go somewhere the stars look unreal."</p>
-                        <p>And she — the emotion time traveler — looked at him like: "Okay. Surprise me."</p>
+                        <h2>Let's go somewhere the stars look unreal</h2>
+                        <p>He said it like he'd been planning it for years.</p>
+                        <p>She said yes like she'd been waiting just as long.</p>
                     </div>
-                    <div class="page-number">13</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page8_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/08_offer.png" alt="Offer" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/08_offer.png" alt="The offer" loading="lazy">
                     </div>
-                    <div class="page-number">14</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="8">
-                <div class="page page-left">
+            <!-- Page 9 -->
+            <div class="page" id="page9">
+                <div class="page-front">
+                    <label for="page9_check" class="page-flipper"></label>
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER IX</div>
+                        <h2>Not a place... a feeling shift</h2>
+                        <p>The air changed first — like the story inhaled.</p>
+                        <p>Their footsteps turned into a soft "whoosh" between worlds.</p>
+                        <p>And suddenly... Turkmenistan.</p>
+                    </div>
+                </div>
+                <div class="page-back">
+                    <label for="page9_check" class="page-flipper"></label>
+                    <div class="page-content">
+                        <img class="page-illustration" src="./assets/illustrations/09_transition01.png" alt="Transition to Turkmenistan" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 10 -->
+            <div class="page" id="page10">
+                <div class="page-front">
+                    <label for="page10_check" class="page-flipper"></label>
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER X</div>
-                        <h2>Türkmenland</h2>
-                        <p>Scotland faded… and Turkmenistan arrived — wide desert, open sky.</p>
-                        <p>Even their clothes changed — traditional Türkmen dress, like the story decided to respect the land.</p>
+                        <h2>She wore a traditional dress</h2>
+                        <p>Red, gold, embroidered like a memory.</p>
+                        <p>He looked at her the way people look at art they don't want to forget.</p>
                     </div>
-                    <div class="page-number">15</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
+                    <label for="page10_check" class="page-flipper"></label>
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/09_transition01.png" alt="Turkmenistan" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/10_transition02.png" alt="Traditional dress" loading="lazy">
                     </div>
-                    <div class="page-number">16</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="9">
-                <div class="page page-left">
+            <!-- Final Page (Page 11) -->
+            <div class="page" id="page11">
+                <div class="page-front">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER XI</div>
+                        <h2>Skywatch</h2>
+                        <p>They stood under a sky that looked like it had been painted just for them.</p>
+                        <p>Stars everywhere. Silence that felt like music.</p>
+                        <p>"This," she whispered, "feels like a borrowed moment."</p>
+                        <p>"Then let's keep it," he said.</p>
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="page-content">
+                        <img class="page-illustration" src="./assets/illustrations/11_skywatch.png" alt="Under the stars" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Page (Page 12) -->
+            <div class="page" id="page12">
+                <div class="page-front">
                     <div class="page-content">
                         <div class="chapter-label">CHAPTER XII</div>
                         <h2>And then the rain agreed</h2>
-                        <p>She said: "You know… I like rain too."</p>
-                        <p>A light rain started like a blessing. They looked at each other, smiled… hugged… and kissed.</p>
+                        <p>She said: "You know... I like rain too."</p>
+                        <p>A light rain started like a blessing. They looked at each other, smiled... hugged... and kissed.</p>
                     </div>
-                    <div class="page-number">17</div>
                 </div>
-                <div class="page page-right">
+                <div class="page-back">
                     <div class="page-content">
-                        <img class="page-illustration" src="./assets/illustrations/12_kiss.png" alt="Kiss in rain" loading="lazy">
+                        <img class="page-illustration" src="./assets/illustrations/12_kiss.png" alt="The kiss in the rain" loading="lazy">
                     </div>
-                    <div class="page-number">18</div>
                 </div>
             </div>
 
-            <div class="page-spread" data-spread="10">
-                <div class="page page-left">
-                    <div class="page-content ending">
+            <!-- End Page -->
+            <div class="page" id="pageEnd">
+                <div class="page-front">
+                    <div class="page-content">
                         <div class="chapter-label">END</div>
-                        <h2>To be continued…</h2>
+                        <h2>To be continued...</h2>
                         <p>This story isn't finished.</p>
                         <p>It's just getting brave enough to exist.</p>
                         <p class="signature">— N & G</p>
                     </div>
-                    <div class="page-number">19</div>
-                </div>
-                <div class="page page-right">
-                    <div class="page-content">
-                        <!-- Empty final page -->
-                    </div>
-                    <div class="page-number">20</div>
                 </div>
             </div>
         </div>
 
-        <!-- Navigation -->
-        <button class="nav-btn nav-left" id="prevBtn">←</button>
-        <button class="nav-btn nav-right" id="nextBtn">→</button>
-        <div class="page-counter" id="pageIndicator">1 / 10</div>
+        <!-- Page Counter -->
+        <div class="page-counter" id="pageCounter">1 / 13</div>
     </div>
+
+    <!-- Rain Effect -->
+    <canvas id="rainCanvas" class="rain-canvas"></canvas>
 
     <script src="app.js"></script>
 </body>
