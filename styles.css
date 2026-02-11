@@ -126,14 +126,14 @@ body {
 .intro-card h1 {
     font-family: 'Cinzel', serif;
     font-size: 1.8em;
-    color: var(--text-light);
+    color: #2a2520;
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .intro-subtitle {
-    color: var(--text-light);
+    color: #2a2520;
     margin-bottom: 30px;
     font-size: 1.05em;
 }
@@ -330,6 +330,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 40px 50px;
 }
 
 .chapter-label {
@@ -364,7 +365,9 @@ body {
 .page-illustration {
     width: 100%;
     max-width: 100%;
+    max-height: 400px;
     height: auto;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     margin: auto;
@@ -515,8 +518,9 @@ body {
     }
     
     .page-illustration {
-        max-height: 200px;
-        object-fit: cover;
+        max-height: 300px;
+        width: 100%;
+        object-fit: contain;
     }
     
     .intro-card {
