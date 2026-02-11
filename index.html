@@ -1,296 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Would you be my Valentine?</title>
-  <link rel="stylesheet" href="./styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Would you be my Valentine?</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <canvas id="stars"></canvas>
-  <canvas id="rain"></canvas>
+    <!-- Initial Question Screen -->
+    <div id="intro" class="intro-screen">
+        <div class="intro-card">
+            <div class="intro-header">N &amp; G</div>
+            <h1>Would you be my Valentine?</h1>
+            <p class="intro-subtitle">Choose carefully, vampire. 🧛🏻‍♀️</p>
+            <div class="intro-buttons">
+                <button id="yesBtn" class="btn-yes">Yes</button>
+                <button id="noBtn" class="btn-no">No</button>
+            </div>
+            <div class="scroll-hint">Scroll ↓</div>
+        </div>
+    </div>
 
-  <main id="story" class="story" aria-label="Valentine story scroll">
-    <!-- PAGE 0: Gate -->
-    <section class="page" id="p0" data-page="0">
-      <div class="card">
-        <div class="kicker">N &amp; G</div>
-        <h1>Would you be my Valentine?</h1>
-        <p class="sub">Choose carefully, vampire. 🧛🏻‍♀️</p>
+    <!-- Book Container -->
+    <div id="book" class="book-container" style="display: none;">
+        <div class="book">
+            <!-- Radio inputs for page control -->
+            <input type="radio" name="page" id="page0" checked>
+            <input type="radio" name="page" id="page1">
+            <input type="radio" name="page" id="page2">
+            <input type="radio" name="page" id="page3">
+            <input type="radio" name="page" id="page4">
+            <input type="radio" name="page" id="page5">
+            <input type="radio" name="page" id="page6">
+            <input type="radio" name="page" id="page7">
+            <input type="radio" name="page" id="page8">
+            <input type="radio" name="page" id="page9">
+            <input type="radio" name="page" id="page10">
+            <input type="radio" name="page" id="page11">
+            <input type="radio" name="page" id="page12">
 
-        <div class="btnRow">
-          <button class="btn primary" id="yesBtn" type="button">Yes</button>
-          <button class="btn ghost" id="noBtn" type="button">No</button>
-        </div>
+            <!-- Page 0-1: Chapter I -->
+            <div class="page page-0">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER I</div>
+                        <h2>Once upon a feeling…</h2>
+                        <div class="story-text">
+                            <p>There was a girl in a Scotland-vibe castle — mist, forests, old stones… and she didn't time-travel for places.</p>
+                            <p>She time-traveled for <strong>emotions</strong>. Sometimes she borrowed a future feeling the way people borrow songs… (even before the player was invented).</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/01_intro.png" alt="Scotland castle">
+                    </div>
+                    <div class="page-number">1</div>
+                    <label for="page1" class="next-page">→</label>
+                </div>
+            </div>
 
-        <p class="hint">Scroll ↓</p>
-      </div>
-    </section>
+            <!-- Page 1-2: Chapter II -->
+            <div class="page page-1">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER II</div>
+                        <h2>She stole a song from tomorrow</h2>
+                        <div class="story-text">
+                            <p>Sometimes she would appear for a second in the future, grab a song, and return like nothing happened.</p>
+                            <p>Billy Eilish in the air, rain in the distance… and a smile that looked like it knew secrets.</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/02_music.png" alt="Music and time travel">
+                    </div>
+                    <div class="page-number">2</div>
+                    <label for="page0" class="prev-page">←</label>
+                    <label for="page2" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 1 -->
-    <section class="page locked" id="p1" data-page="1" data-img="assets/illustrations/01_intro.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Intro illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter I</div>
-          <h2>Once upon a feeling…</h2>
-          <p class="lead">
-            There was a girl in a Scotland-vibe castle — mist, forests, old stones…
-            and she didn’t time-travel for places.
-          </p>
-          <p class="dim">
-            She time-traveled for <span class="emph">emotions</span>.
-            Sometimes she borrowed a future feeling the way people borrow songs…
-            (even before the player was invented).
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 2-3: Chapter III -->
+            <div class="page page-2">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER III</div>
+                        <h2>You look SO free when you dance.</h2>
+                        <div class="story-text">
+                            <p>That day she danced like the world wasn't watching — like gravity was just a suggestion.</p>
+                            <p>(The forest noticed too… animals didn't "dance-dance", but they moved a little closer, quietly approving.)</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/03_dance.png" alt="Dancing freely">
+                    </div>
+                    <div class="page-number">3</div>
+                    <label for="page1" class="prev-page">←</label>
+                    <label for="page3" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 2 -->
-    <section class="page locked" id="p2" data-page="2" data-img="assets/illustrations/02_music.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Music / time travel illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter II</div>
-          <h2>She stole a song from tomorrow</h2>
-          <p class="lead">
-            Sometimes she would appear for a second in the future, grab a song,
-            and return like nothing happened.
-          </p>
-          <p class="dim">
-            Billy Eilish in the air, rain in the distance… and a smile that looked like
-            it knew secrets.
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 3-4: Chapter IV -->
+            <div class="page page-3">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER IV</div>
+                        <h2>And then… I saw you.</h2>
+                        <div class="story-text">
+                            <p>A man stepped into the scene — not to interrupt, only to witness.</p>
+                            <p>He watched her dance and felt something impossible: a calm kind of "oh… there you are."</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/04_watching.png" alt="Watching">
+                    </div>
+                    <div class="page-number">4</div>
+                    <label for="page2" class="prev-page">←</label>
+                    <label for="page4" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 3 -->
-    <section class="page locked" id="p3" data-page="3" data-img="assets/illustrations/03_dance.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Dancing illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter III</div>
-          <h2>You look SO free when you dance.</h2>
-          <p class="lead">
-            That day she danced like the world wasn’t watching —
-            like gravity was just a suggestion.
-          </p>
-          <p class="dim">
-            (The forest noticed too… animals didn’t “dance-dance”, but they moved
-            a little closer, quietly approving.)
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 4-5: Chapter V -->
+            <div class="page page-4">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER V</div>
+                        <h2>The Question</h2>
+                        <div class="story-text">
+                            <p>She turned, noticed the way he was smiling… and asked the only important question:</p>
+                            <p class="highlight">"Çok mu çok?"</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/05_cokmu.png" alt="The question">
+                    </div>
+                    <div class="page-number">5</div>
+                    <label for="page3" class="prev-page">←</label>
+                    <label for="page5" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 4 -->
-    <section class="page locked" id="p4" data-page="4" data-img="assets/illustrations/04_watching.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Watching her dance illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter IV</div>
-          <h2>And then… I saw you.</h2>
-          <p class="lead">
-            A man stepped into the scene — not to interrupt,
-            only to witness.
-          </p>
-          <p class="dim">
-            He watched her dance and felt something impossible:
-            a calm kind of “oh… there you are.”
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 5-6: Chapter VI -->
+            <div class="page page-5">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER VI</div>
+                        <h2>Emergency snacks… for a vampire</h2>
+                        <div class="story-text">
+                            <p>She said she needed to rest — she gets hungry easily. The man didn't panic.</p>
+                            <p>He pulled out bananas, then dark chocolate, then a latte. She took them… and smiled like she'd just been understood.</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/06_food.png" alt="Snacks">
+                    </div>
+                    <div class="page-number">6</div>
+                    <label for="page4" class="prev-page">←</label>
+                    <label for="page6" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 5 -->
-    <section class="page locked" id="p5" data-page="5" data-img="assets/illustrations/05_cokmu.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Cok mu cok moment illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter V</div>
-          <h2>...</h2>
-          <p class="lead">
-            She turned, noticed the way he was smiling…
-            and asked the only important question:
-          </p>
-          <p class="quote">“Çok mu çok?”</p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 6-7: Chapter VII -->
+            <div class="page page-6">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER VII</div>
+                        <h2>Scotland, but warmer</h2>
+                        <div class="story-text">
+                            <p>They walked and talked — the kind of talking where time feels softer.</p>
+                            <p>The castle stayed behind, but the mood followed. Like a fairytale that decided to be real.</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/07_walk.png" alt="Walking together">
+                    </div>
+                    <div class="page-number">7</div>
+                    <label for="page5" class="prev-page">←</label>
+                    <label for="page7" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 6 -->
-    <section class="page locked" id="p6" data-page="6" data-img="assets/illustrations/06_food.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Food offering illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter VI</div>
-          <h2>Emergency snacks… for a vampire</h2>
-          <p class="lead">
-            She said she needed to rest — she gets hungry easily.
-            The man didn’t panic.
-          </p>
-          <p class="dim">
-            He pulled out bananas, then dark chocolate, then a latte.
-            She took them… and smiled like she’d just been understood.
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 7-8: Chapter VIII -->
+            <div class="page page-7">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER VIII</div>
+                        <h2>The offer</h2>
+                        <div class="story-text">
+                            <p>He said: "Let's go somewhere the stars look unreal."</p>
+                            <p>And she — the emotion time traveler — looked at him like: "Okay. Surprise me."</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/08_offer.png" alt="The offer">
+                    </div>
+                    <div class="page-number">8</div>
+                    <label for="page6" class="prev-page">←</label>
+                    <label for="page8" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 7 -->
-    <section class="page locked" id="p7" data-page="7" data-img="assets/illustrations/07_walk.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Walking together illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter VII</div>
-          <h2>Scotland, but warmer</h2>
-          <p class="lead">
-            They walked and talked — the kind of talking where time feels softer.
-          </p>
-          <p class="dim">
-            The castle stayed behind, but the mood followed.
-            Like a fairytale that decided to be real.
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 8-9: Chapter IX -->
+            <div class="page page-8">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER IX</div>
+                        <h2>Not a place… a feeling shift</h2>
+                        <div class="story-text">
+                            <p>The air changed first — like the story inhaled.</p>
+                            <p>Their footsteps turned into a soft "whoosh" between worlds.</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/09_shift.png" alt="Feeling shift">
+                    </div>
+                    <div class="page-number">9</div>
+                    <label for="page7" class="prev-page">←</label>
+                    <label for="page9" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 8 -->
-    <section class="page locked" id="p8" data-page="8" data-img="assets/illustrations/08_offer.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Offer to see stars illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter VIII</div>
-          <h2>The offer</h2>
-          <p class="lead">
-            He said: “Let’s go somewhere the stars look unreal.”
-          </p>
-          <p class="dim">
-            And she — the emotion time traveler — looked at him like:
-            “Okay. Surprise me.”
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 9-10: Chapter X -->
+            <div class="page page-9">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER X</div>
+                        <h2>Türkmenland</h2>
+                        <div class="story-text">
+                            <p>Scotland faded… and Turkmenistan arrived — wide desert, open sky.</p>
+                            <p>Even their clothes changed — traditional Türkmen dress, like the story decided to respect the land.</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/10_turkmen.png" alt="Turkmenistan">
+                    </div>
+                    <div class="page-number">10</div>
+                    <label for="page8" class="prev-page">←</label>
+                    <label for="page10" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 9 -->
-    <section class="page locked" id="p9" data-page="9" data-img="assets/illustrations/09_transition01.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Transition scene 1 illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter IX</div>
-          <h2>Not a place… a feeling shift</h2>
-          <p class="lead">
-            The air changed first — like the story inhaled.
-          </p>
-          <p class="dim">
-            Their footsteps turned into a soft “whoosh” between worlds.
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 10-11: Chapter XI -->
+            <div class="page page-10">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER XI</div>
+                        <h2>Stars that don't blink</h2>
+                        <div class="story-text">
+                            <p>Silence. Real silence. The kind you can hear.</p>
+                            <p>He said: "I love the view." She smiled: "Yeah… it's beautiful."</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/11_stars.png" alt="Stars">
+                    </div>
+                    <div class="page-number">11</div>
+                    <label for="page9" class="prev-page">←</label>
+                    <label for="page11" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 10 -->
-    <section class="page locked" id="p10" data-page="10" data-img="assets/illustrations/10_transition02.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Transition to Turkmenistan illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter X</div>
-          <h2>Türkmenland</h2>
-          <p class="lead">
-            Scotland faded… and Turkmenistan arrived — wide desert, open sky.
-          </p>
-          <p class="dim">
-            Even their clothes changed — traditional Türkmen dress,
-            like the story decided to respect the land.
-          </p>
-        </div>
-      </div>
-    </section>
+            <!-- Page 11-12: Chapter XII -->
+            <div class="page page-11">
+                <div class="page-inner">
+                    <div class="page-content">
+                        <div class="chapter-label">CHAPTER XII</div>
+                        <h2>And then the rain agreed</h2>
+                        <div class="story-text">
+                            <p>She said: "You know… I like rain too."</p>
+                            <p>A light rain started like a blessing. They looked at each other, smiled… hugged… and kissed.</p>
+                        </div>
+                        <img class="page-illustration" src="./assets/illustrations/12_rain.png" alt="Rain and kiss">
+                    </div>
+                    <div class="page-number">12</div>
+                    <label for="page10" class="prev-page">←</label>
+                    <label for="page12" class="next-page">→</label>
+                </div>
+            </div>
 
-    <!-- PAGE 11 -->
-    <section class="page locked" id="p11" data-page="11" data-img="assets/illustrations/11_skywatch.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Skywatch illustration" />
+            <!-- Page 12-13: End -->
+            <div class="page page-12">
+                <div class="page-inner">
+                    <div class="page-content ending">
+                        <div class="chapter-label">END</div>
+                        <h2>To be continued…</h2>
+                        <div class="story-text">
+                            <p>This story isn't finished.</p>
+                            <p>It's just getting brave enough to exist.</p>
+                            <p class="signature">— N &amp; G</p>
+                        </div>
+                    </div>
+                    <div class="page-number">13</div>
+                    <label for="page11" class="prev-page">←</label>
+                </div>
+            </div>
         </div>
-        <div class="content">
-          <div class="kicker">Chapter XI</div>
-          <h2>Stars that don’t blink</h2>
-          <p class="lead">
-            Silence. Real silence. The kind you can hear.
-          </p>
-          <p class="dim">
-            He said: “I love the view.”
-            She smiled: “Yeah… it’s beautiful.”
-          </p>
-        </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- PAGE 12 -->
-    <section class="page locked" id="p12" data-page="12" data-img="assets/illustrations/12_kiss.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="Rain and kiss illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">Chapter XII</div>
-          <h2>And then the rain agreed</h2>
-          <p class="lead">
-            She said: “You know… I like rain too.”
-          </p>
-          <p class="dim">
-            A light rain started like a blessing.
-            They looked at each other, smiled… hugged… and kissed.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 13 -->
-    <section class="page locked" id="p13" data-page="13" data-img="assets/illustrations/13_tobecontinued.png">
-      <div class="card split">
-        <div class="media">
-          <img class="ill" alt="To be continued illustration" />
-        </div>
-        <div class="content">
-          <div class="kicker">End</div>
-          <h2>To be continued…</h2>
-          <p class="lead">
-            This story isn’t finished.
-          </p>
-          <p class="dim">
-            It’s just getting brave enough to exist.
-          </p>
-          <div class="sig">— N &amp; G</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="./app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
