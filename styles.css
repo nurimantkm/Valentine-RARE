@@ -229,59 +229,52 @@ body {
     height: 100%;
     display: flex;
     transform-style: preserve-3d;
-    backface-visibility: hidden;
     opacity: 0;
     pointer-events: none;
     transition: none;
+    transform-origin: left center;
 }
 
 .page-spread.current {
     opacity: 1;
     pointer-events: auto;
     z-index: 5;
+    transform: perspective(2500px) rotateY(0deg);
 }
 
 .page-spread.flipping-forward {
-    animation: pageFlipForward 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    animation: pageFlipForward 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
     z-index: 10;
     opacity: 1;
 }
 
 .page-spread.flipping-backward {
-    animation: pageFlipBackward 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    animation: pageFlipBackward 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
     z-index: 10;
     opacity: 1;
 }
 
 @keyframes pageFlipForward {
     0% { 
-        transform: perspective(2000px) rotateY(0deg);
-        transform-origin: center center;
-    }
-    50% {
-        transform: perspective(2000px) rotateY(-90deg);
-        transform-origin: center center;
+        transform: perspective(2500px) rotateY(0deg);
+        transform-origin: left center;
     }
     100% { 
-        transform: perspective(2000px) rotateY(-180deg);
-        transform-origin: center center;
+        transform: perspective(2500px) rotateY(-180deg);
+        transform-origin: left center;
         opacity: 0;
     }
 }
 
 @keyframes pageFlipBackward {
     0% { 
-        transform: perspective(2000px) rotateY(-180deg);
-        transform-origin: center center;
+        transform: perspective(2500px) rotateY(-180deg);
+        transform-origin: left center;
         opacity: 0;
     }
-    50% {
-        transform: perspective(2000px) rotateY(-90deg);
-        transform-origin: center center;
-    }
     100% { 
-        transform: perspective(2000px) rotateY(0deg);
-        transform-origin: center center;
+        transform: perspective(2500px) rotateY(0deg);
+        transform-origin: left center;
         opacity: 1;
     }
 }
