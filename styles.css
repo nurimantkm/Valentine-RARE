@@ -1,135 +1,57 @@
 :root{
-  --bg0:#060812;
-  --bg1:#090F22;
-  --card: rgba(10, 14, 26, .62);
-  --text:#EAF0FF;
-  --muted: rgba(234,240,255,.76);
-  --dim: rgba(234,240,255,.58);
-  --accent:#6EE7D8;
-  --stroke: rgba(255,255,255,.12);
+  --bg0:#0b0d12;
+  --bg1:#0f1320;
+  --paper: rgba(18, 20, 28, 0.72);
+  --stroke: rgba(255,255,255,0.12);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.70);
+  --accent: #ff5b8a;
+  --accent2: #7cdbff;
+  --shadow: rgba(0,0,0,0.55);
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 800px at 20% 10%, #1A2A4A 0%, transparent 60%),
-    radial-gradient(900px 700px at 80% 30%, #1B3A3A 0%, transparent 55%),
-    linear-gradient(180deg, var(--bg0), var(--bg1));
-  overflow:hidden;
+*{ box-sizing: border-box; }
+html, body{
+  height: 100%;
+  margin: 0;
+  background: radial-gradient(1200px 900px at 25% 10%, #18224a 0%, var(--bg0) 55%, #07080d 100%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  overflow: hidden;
 }
 
-/* Canvases */
-#stars,#rain{
-  position:fixed; inset:0;
-  width:100%; height:100%;
-  pointer-events:none;
+#stars, #rain{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
-#stars{opacity:.9}
-#rain{opacity:.55}
 
-/* Scroll story */
 .story{
-  height:100vh;
-  overflow-y:auto;
-  scroll-snap-type:y mandatory;
-  scroll-behavior:smooth;
-  position:relative;
-  z-index:2;
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  padding: 22px 14px 60px;
 }
 
 .page{
-  height:100vh;
-  display:grid;
-  place-items:center;
-  padding:22px;
-  scroll-snap-align:start;
+  scroll-snap-align: start;
+  min-height: calc(100vh - 22px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 0;
 }
 
 .card{
-  width:min(760px, 92vw);
-  border:1px solid var(--stroke);
-  background: var(--card);
-  backdrop-filter: blur(10px);
-  border-radius: 26px;
+  width: min(820px, 92vw);
+  background: var(--paper);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
   padding: 26px 22px;
-  box-shadow: 0 18px 90px rgba(0,0,0,.35);
-}
-
-.kicker{
-  font-size:12px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:rgba(234,240,255,.48);
-  margin-bottom:10px;
-}
-
-h1,h2{
-  margin:0 0 10px 0;
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
-  font-weight: 760;
-}
-h1{font-size:36px; line-height:1.15}
-h2{font-size:30px; line-height:1.18}
-
-.sub{margin:8px 0 18px 0; color:var(--muted)}
-.lead{font-size:18px; margin:10px 0; color:var(--muted); line-height:1.55}
-.dim{margin:10px 0; color:var(--dim); line-height:1.6}
-.tiny{margin:10px 0 0; color:rgba(234,240,255,.40); font-size:13px}
-.emph{color: rgba(255,255,255,.92); font-weight:700}
-
-.quote{
-  color: rgba(255,255,255,.92);
-  font-weight: 700;
-}
-
-.btnRow{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-top: 16px;
-  position:relative;
-  height:54px;
-}
-
-.btn{
-  border-radius:999px;
-  padding: 12px 18px;
-  border:1px solid var(--stroke);
-  background: rgba(255,255,255,.06);
-  color: var(--text);
-  font-weight:750;
-  cursor:pointer;
-  transition: transform .12s ease, background .2s ease, border-color .2s ease;
-}
-.btn:hover{transform: translateY(-1px)}
-.btn:active{transform: translateY(0px) scale(.98)}
-.btn.primary{
-  background: rgba(110,231,216,.15);
-  border-color: rgba(110,231,216,.36);
-}
-.btn.primary:hover{
-  background: rgba(110,231,216,.22);
-  border-color: rgba(110,231,216,.55);
-}
-.btn.ghost{background: rgba(255,255,255,.04)}
-
-.hint{
-  margin-top:14px;
-  font-size:12px;
-  color:rgba(234,240,255,.38);
-}
-
-.sig{
-  margin-top:18px;
-  text-align:right;
-  color: rgba(234,240,255,.58);
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
-  letter-spacing:.06em;
-}
-
-.ps{margin-top:10px; color: rgba(234,240,255,.76)}
-.hidden{display:none}
+  box-shadow: 0 20px 50px va
