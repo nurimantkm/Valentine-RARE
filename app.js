@@ -94,18 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         
-        // Flip current page forward
+        // Fade out current, fade in next
         current.classList.remove('current');
-        current.classList.add('flipping-forward');
+        current.classList.add('fading-out');
+        next.classList.add('fading-in');
         
         setTimeout(() => {
-            current.classList.remove('flipping-forward');
+            current.classList.remove('fading-out');
+            next.classList.remove('fading-in');
             next.classList.add('current');
             
             currentSpread++;
             updateNavigation();
             checkRainEffect();
-        }, 800);
+        }, 1200);
     }
 
     function flipToPrevious() {
@@ -116,18 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         
-        // Flip back to previous page
+        // Fade out current, fade in previous
         current.classList.remove('current');
-        previous.classList.add('flipping-backward');
+        current.classList.add('fading-out');
+        previous.classList.add('fading-in');
         
         setTimeout(() => {
-            previous.classList.remove('flipping-backward');
+            current.classList.remove('fading-out');
+            previous.classList.remove('fading-in');
             previous.classList.add('current');
             
             currentSpread--;
             updateNavigation();
             checkRainEffect();
-        }, 800);
+        }, 1200);
     }
 
     function updateNavigation() {

@@ -228,62 +228,48 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
     opacity: 0;
+    transform: scale(0.98) translateZ(0);
+    filter: blur(10px);
+    transition: opacity 1.2s ease-in-out, 
+                transform 1.2s ease-in-out,
+                filter 1.2s ease-in-out;
     pointer-events: none;
-    transition: none;
+    will-change: opacity, transform, filter;
 }
 
 .page-spread.current {
     opacity: 1;
+    transform: scale(1) translateZ(0);
+    filter: blur(0);
     pointer-events: auto;
     z-index: 5;
 }
 
-.page-spread.flipping-forward {
-    animation: pageFlipForward 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-    z-index: 10;
-    opacity: 1;
+.page-spread.fading-out {
+    opacity: 0;
+    transform: scale(1.02) translateZ(0);
+    filter: blur(10px);
+    z-index: 3;
 }
 
-.page-spread.flipping-backward {
-    animation: pageFlipBackward 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-    z-index: 10;
-    opacity: 1;
+.page-spread.fading-in {
+    animation: fadeInDissolve 1.2s ease-in-out forwards;
+    z-index: 4;
 }
 
-@keyframes pageFlipForward {
-    0% { 
-        transform: perspective(2000px) rotateY(0deg);
-        transform-origin: center center;
-    }
-    50% {
-        transform: perspective(2000px) rotateY(-90deg);
-        transform-origin: center center;
-    }
-    100% { 
-        transform: perspective(2000px) rotateY(-180deg);
-        transform-origin: center center;
+@keyframes fadeInDissolve {
+    0% {
         opacity: 0;
+        transform: scale(0.98) translateZ(0);
+        filter: blur(10px);
     }
-}
-
-@keyframes pageFlipBackward {
-    0% { 
-        transform: perspective(2000px) rotateY(-180deg);
-        transform-origin: center center;
-        opacity: 0;
-    }
-    50% {
-        transform: perspective(2000px) rotateY(-90deg);
-        transform-origin: center center;
-    }
-    100% { 
-        transform: perspective(2000px) rotateY(0deg);
-        transform-origin: center center;
+    100% {
         opacity: 1;
+        transform: scale(1) translateZ(0);
+        filter: blur(0);
     }
+}
 }
 
 /* Individual page styling */
