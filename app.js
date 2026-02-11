@@ -1,265 +1,175 @@
-// ===== Background: Stars + Rain =====
-const starsCanvas = document.getElementById("stars");
-const rainCanvas = document.getElementById("rain");
-const storyEl = document.getElementById("story");
+// Valentine Book Flip - JavaScript
 
-const ctxS = starsCanvas.getContext("2d");
-const ctxR = rainCanvas.getContext("2d");
-
-let W = 0, H = 0;
-function resize() {
-  W = starsCanvas.width = rainCanvas.width = window.innerWidth;
-  H = starsCanvas.height = rainCanvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resize);
-resize();
-
-// Stars with subtle parallax
-const stars = Array.from({ length: 140 }, () => ({
-  x: Math.random(),
-  y: Math.random(),
-  r: Math.random() * 1.6 + 0.2,
-  a: Math.random() * 0.6 + 0.2,
-  tw: Math.random() * 0.02 + 0.005,
-  depth: Math.random() * 0.5 + 0.5, // for parallax
-}));
-
-let scrollOffset = 0;
-
-function drawStars(t) {
-  ctxS.clearRect(0, 0, W, H);
-  for (const s of stars) {
-    const tw = Math.sin(t * 0.001 + s.x * 10) * s.tw;
-    ctxS.globalAlpha = Math.max(0, Math.min(1, s.a + tw));
-    ctxS.beginPath();
-    // Parallax effect based on scroll
-    const parallaxY = s.y * H + (scrollOffset * s.depth * 0.3);
-    ctxS.arc(s.x * W, parallaxY % H, s.r, 0, Math.PI * 2);
-    ctxS.fillStyle = "#EAF0FF";
-    ctxS.fill();
-  }
-  ctxS.globalAlpha = 1;
-}
-
-// Rain
-let rainIntensity = 0.55;
-let drops = [];
-
-function resetRain() {
-  drops = Array.from({ length: Math.floor(240 * rainIntensity) }, () => ({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    l: Math.random() * 18 + 10,
-    v: Math.random() * 7 + 6,
-    a: Math.random() * 0.25 + 0.08,
-  }));
-}
-resetRain();
-
-function drawRain() {
-  ctxR.clearRect(0, 0, W, H);
-  ctxR.lineWidth = 1;
-  ctxR.strokeStyle = "rgba(234,240,255,0.6)";
-
-  for (const d of drops) {
-    ctxR.globalAlpha = d.a;
-    ctxR.beginPath();
-    ctxR.moveTo(d.x, d.y);
-    ctxR.lineTo(d.x, d.y + d.l);
-    ctxR.stroke();
-
-    d.y += d.v;
-    d.x += 0.6;
-
-    if (d.y > H) {
-      d.y = -d.l;
-      d.x = Math.random() * W;
-    }
-    if (d.x > W) d.x = 0;
-  }
-  ctxR.globalAlpha = 1;
-}
-
-// Animation loop
-function tick(t) {
-  drawStars(t);
-  drawRain();
-  requestAnimationFrame(tick);
-}
-requestAnimationFrame(tick);
-
-// ===== Gate logic (Yes unlocks story) =====
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-
-function unlockStory() {
-  const lockedPages = document.querySelectorAll(".page.locked");
-  
-  // Unlock with staggered animation
-  lockedPages.forEach((el, index) => {
-    setTimeout(() => {
-      el.classList.remove("locked");
-    }, index * 80);
-  });
-  
-  // jump to first story page nicely
-  setTimeout(() => {
-    const p1 = document.getElementById("p1");
-    if (p1) p1.scrollIntoView({ behavior: "smooth" });
-  }, 400);
-}
-
-yesBtn.addEventListener("click", () => {
-  unlockStory();
-});
-
-noBtn.addEventListener("mouseenter", () => {
-  // playful "run away" button
-  const maxX = Math.max(0, yesBtn.parentElement.clientWidth - noBtn.offsetWidth);
-  const maxY = 0;
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-  noBtn.style.position = "absolute";
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-});
-
-noBtn.addEventListener("click", () => {
-  // gentle tease
-  alert("Nice try 😌");
-});
-
-// ===== Illustrations: load from data-img =====
-function wireIllustrations() {
-  document.querySelectorAll(".page[data-img]").forEach((page) => {
-    const imgPath = page.getAttribute("data-img");
-    const imgEl = page.querySelector("img.ill");
-    if (!imgEl) return;
-    imgEl.dataset.src = `./${imgPath}`;
-  });
-}
-wireIllustrations();
-
-// ===== Page Turn Effect =====
-let lastScrollTop = 0;
-let currentPageIndex = 0;
-const pages = Array.from(document.querySelectorAll(".page"));
-
-function updatePageTurnEffect() {
-  const scrollTop = storyEl.scrollTop;
-  scrollOffset = scrollTop; // for star parallax
-  
-  const scrollHeight = storyEl.scrollHeight - storyEl.clientHeight;
-  const scrollProgress = scrollTop / scrollHeight;
-  
-  pages.forEach((page, index) => {
-    const pageTop = page.offsetTop;
-    const pageHeight = page.offsetHeight;
-    const pageCenter = pageTop + pageHeight / 2;
-    const viewportCenter = scrollTop + storyEl.clientHeight / 2;
+document.addEventListener('DOMContentLoaded', () => {
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const intro = document.getElementById('intro');
+    const book = document.getElementById('book');
     
-    const distanceFromCenter = viewportCenter - pageCenter;
-    const normalizedDistance = distanceFromCenter / pageHeight;
-    
-    // Remove all turn classes first
-    page.classList.remove('turning-out', 'turned', 'turning-in');
-    
-    if (normalizedDistance > 0.8) {
-      // Page is above viewport - fully turned
-      page.classList.add('turned');
-    } else if (normalizedDistance > 0.3) {
-      // Page is leaving viewport - turning out
-      page.classList.add('turning-out');
-    } else if (normalizedDistance < -0.3) {
-      // Page is entering viewport - turning in
-      page.classList.add('turning-in');
-    }
-  });
-  
-  lastScrollTop = scrollTop;
-}
+    let currentPage = 0;
+    const totalPages = 12;
 
-// Lazy load + page fade-in with enhanced intersection observer
-const io = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      const page = e.target;
-      if (e.isIntersecting) {
-        page.classList.add("in-view");
-        // Load illustration
-        const img = page.querySelector("img.ill");
-        if (img && !img.src && img.dataset.src) {
-          img.src = img.dataset.src;
+    // Yes button - unlock the story
+    yesBtn.addEventListener('click', () => {
+        intro.classList.add('hidden');
+        setTimeout(() => {
+            intro.style.display = 'none';
+            book.style.display = 'flex';
+            // Add entrance animation
+            book.style.opacity = '0';
+            book.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                book.style.transition = 'opacity 1s ease, transform 1s ease';
+                book.style.opacity = '1';
+                book.style.transform = 'scale(1)';
+            }, 50);
+        }, 800);
+    });
+
+    // No button - playful interaction
+    noBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Move the button randomly
+        const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+        
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+        noBtn.style.transition = 'all 0.3s ease';
+        
+        // Shake the card
+        const card = document.querySelector('.intro-card');
+        card.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+            card.style.animation = '';
+        }, 500);
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (book.style.display === 'none') return;
+        
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            nextPage();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            prevPage();
         }
-      } else {
-        // Optional: remove in-view when scrolled past
-        // page.classList.remove("in-view");
-      }
+    });
+
+    // Swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    book.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    book.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            nextPage();
+        }
+        if (touchEndX > touchStartX + swipeThreshold) {
+            prevPage();
+        }
     }
-  },
-  { root: storyEl, threshold: [0, 0.25, 0.5, 0.75, 1] }
-);
 
-pages.forEach((p) => io.observe(p));
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            document.getElementById(`page${currentPage}`).checked = true;
+        }
+    }
 
-// ===== Rain intensity bump on kiss page + Page turn effect =====
-storyEl.addEventListener("scroll", () => {
-  const current = getCurrentPage();
-  
-  // Make rain stronger around page 12 (kiss)
-  const target = current >= 12 ? 0.95 : 0.55;
-  rainIntensity += (target - rainIntensity) * 0.06;
-  if (drops.length !== Math.floor(240 * rainIntensity)) {
-    resetRain();
-  }
-  
-  // Update page turn effect
-  requestAnimationFrame(updatePageTurnEffect);
+    function prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            document.getElementById(`page${currentPage}`).checked = true;
+        }
+    }
+
+    // Track page changes via radio buttons
+    const radioInputs = document.querySelectorAll('input[name="page"]');
+    radioInputs.forEach((radio, index) => {
+        radio.addEventListener('change', () => {
+            if (radio.checked) {
+                currentPage = index;
+                addPageFlipSound();
+            }
+        });
+    });
+
+    // Optional: Add subtle page flip sound effect
+    function addPageFlipSound() {
+        // You can add a subtle audio effect here if desired
+        // const audio = new Audio('page-flip.mp3');
+        // audio.volume = 0.3;
+        // audio.play();
+    }
+
+    // Add rain effect on the last page
+    function createRainEffect() {
+        const rainContainer = document.createElement('div');
+        rainContainer.className = 'rain-effect';
+        rainContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        `;
+        
+        for (let i = 0; i < 50; i++) {
+            const drop = document.createElement('div');
+            drop.style.cssText = `
+                position: absolute;
+                width: 2px;
+                height: 20px;
+                background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
+                left: ${Math.random() * 100}%;
+                top: -20px;
+                animation: fall ${2 + Math.random() * 2}s linear infinite;
+                animation-delay: ${Math.random() * 2}s;
+            `;
+            rainContainer.appendChild(drop);
+        }
+        
+        document.body.appendChild(rainContainer);
+    }
+
+    // Monitor when user reaches the kiss scene (page 11)
+    document.getElementById('page11').addEventListener('change', (e) => {
+        if (e.target.checked) {
+            createRainEffect();
+        }
+    });
+
+    // Add CSS animation for rain
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    `;
+    document.head.appendChild(style);
 });
-
-function getCurrentPage() {
-  // pick the page closest to center of viewport
-  let best = 0;
-  let bestDist = Infinity;
-  const viewportCenter = storyEl.scrollTop + storyEl.clientHeight / 2;
-  
-  for (const p of pages) {
-    const pageCenter = p.offsetTop + p.offsetHeight / 2;
-    const dist = Math.abs(viewportCenter - pageCenter);
-    if (dist < bestDist) {
-      bestDist = dist;
-      best = parseInt(p.dataset.page || "0", 10);
-    }
-  }
-  return best;
-}
-
-// ===== Mouse parallax effect on cards (subtle 3D tilt) =====
-if (window.matchMedia("(min-width: 861px)").matches) {
-  pages.forEach(page => {
-    const card = page.querySelector('.card');
-    if (!card) return;
-    
-    page.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / centerY * -3; // max 3deg
-      const rotateY = (x - centerX) / centerX * 3;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-    });
-    
-    page.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-}
-
-// Initial page turn state
-updatePageTurnEffect();
-
