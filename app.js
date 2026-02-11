@@ -1,4 +1,4 @@
-// Valentine Book - Smooth Page Curl Animation
+// Valentine Book - Complete Fixed Version
 document.addEventListener('DOMContentLoaded', () => {
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
@@ -28,37 +28,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 800);
     });
 
-    // No button - playful escape
-    let noClickCount = 0;
-    noBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        noClickCount++;
+    // No button - runs away on hover (not click)
+    let noEscapeCount = 0;
+    
+    noBtn.addEventListener('mouseenter', (e) => {
+        noEscapeCount++;
         
-        if (noClickCount >= 3) {
+        // After 3 escapes, automatically click Yes
+        if (noEscapeCount >= 3) {
             yesBtn.click();
             return;
         }
         
-        const maxX = window.innerWidth - noBtn.offsetWidth - 100;
-        const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+        // Calculate safe movement area
+        const card = noBtn.closest('.intro-card');
+        const cardRect = card.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
         
-        const randomX = Math.max(50, Math.random() * maxX);
-        const randomY = Math.max(50, Math.random() * maxY);
+        // Random direction
+        const directions = [
+            { x: 80, y: 0 },     // Right
+            { x: -80, y: 0 },    // Left
+            { x: 0, y: 60 },     // Down
+            { x: 0, y: -60 },    // Up
+            { x: 60, y: 60 },    // Diagonal down-right
+            { x: -60, y: 60 },   // Diagonal down-left
+        ];
         
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = randomX + 'px';
-        noBtn.style.top = randomY + 'px';
-        noBtn.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        const randomDir = directions[Math.floor(Math.random() * directions.length)];
+        
+        noBtn.style.setProperty('--move-x', randomDir.x + 'px');
+        noBtn.style.setProperty('--move-y', randomDir.y + 'px');
+        noBtn.classList.add('escaped');
+        
+        setTimeout(() => {
+            noBtn.classList.remove('escaped');
+        }, 300);
+    });
+    
+    // Reset position when mouse leaves the card area
+    noBtn.closest('.intro-card').addEventListener('mouseleave', () => {
+        noBtn.style.setProperty('--move-x', '0px');
+        noBtn.style.setProperty('--move-y', '0px');
     });
 
-    // Next page
+    // Next page with smooth forward flip
     nextBtn.addEventListener('click', () => {
         if (currentSpread < totalSpreads - 1) {
             flipToNext();
         }
     });
 
-    // Previous page
+    // Previous page with smooth backward flip
     prevBtn.addEventListener('click', () => {
         if (currentSpread > 0) {
             flipToPrevious();
@@ -69,13 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const current = spreads[currentSpread];
         const next = spreads[currentSpread + 1];
         
-        // Flip current page away
+        // Disable buttons during animation
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        
+        // Flip current page forward
         current.classList.remove('current');
-        current.classList.add('flipping-out');
+        current.classList.add('flipping-forward');
         
         setTimeout(() => {
-            current.classList.remove('flipping-out');
-            current.classList.add('flipped');
+            current.classList.remove('flipping-forward');
             next.classList.add('current');
             
             currentSpread++;
@@ -88,25 +112,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const current = spreads[currentSpread];
         const previous = spreads[currentSpread - 1];
         
-        // Flip previous page back
-        previous.classList.remove('flipped');
-        previous.classList.add('flipping-out');
+        // Disable buttons during animation
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
         
-        // Reverse animation
+        // Flip back to previous page
+        current.classList.remove('current');
+        previous.classList.add('flipping-backward');
+        
         setTimeout(() => {
-            previous.style.animation = 'pageFlipIn 0.8s ease-in-out forwards';
+            previous.classList.remove('flipping-backward');
+            previous.classList.add('current');
             
-            setTimeout(() => {
-                previous.style.animation = '';
-                previous.classList.remove('flipping-out');
-                previous.classList.add('current');
-                current.classList.remove('current');
-                
-                currentSpread--;
-                updateNavigation();
-                checkRainEffect();
-            }, 800);
-        }, 50);
+            currentSpread--;
+            updateNavigation();
+            checkRainEffect();
+        }, 800);
     }
 
     function updateNavigation() {
@@ -133,9 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!bookContainer.classList.contains('visible')) return;
         
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-            nextBtn.click();
+            if (!nextBtn.disabled) nextBtn.click();
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            prevBtn.click();
+            if (!prevBtn.disabled) prevBtn.click();
         }
     });
 
@@ -156,9 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const swipeThreshold = 50;
         const diff = touchEndX - touchStartX;
         
-        if (diff < -swipeThreshold) {
+        if (diff < -swipeThreshold && !nextBtn.disabled) {
             nextBtn.click();
-        } else if (diff > swipeThreshold) {
+        } else if (diff > swipeThreshold && !prevBtn.disabled) {
             prevBtn.click();
         }
     }
@@ -179,16 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.body.appendChild(rain);
     }
-
-    // Add page flip in animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes pageFlipIn {
-            0% { transform: rotateY(-180deg); }
-            100% { transform: rotateY(0deg); }
-        }
-    `;
-    document.head.appendChild(style);
 
     // Floating particles
     createFloatingParticles();
