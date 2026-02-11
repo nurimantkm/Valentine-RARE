@@ -256,15 +256,15 @@ body {
 @keyframes pageFlipForward {
     0% { 
         transform: perspective(2000px) rotateY(0deg);
-        transform-origin: left center;
+        transform-origin: center center;
     }
     50% {
         transform: perspective(2000px) rotateY(-90deg);
-        transform-origin: left center;
+        transform-origin: center center;
     }
     100% { 
         transform: perspective(2000px) rotateY(-180deg);
-        transform-origin: left center;
+        transform-origin: center center;
         opacity: 0;
     }
 }
@@ -272,16 +272,16 @@ body {
 @keyframes pageFlipBackward {
     0% { 
         transform: perspective(2000px) rotateY(-180deg);
-        transform-origin: left center;
+        transform-origin: center center;
         opacity: 0;
     }
     50% {
         transform: perspective(2000px) rotateY(-90deg);
-        transform-origin: left center;
+        transform-origin: center center;
     }
     100% { 
         transform: perspective(2000px) rotateY(0deg);
-        transform-origin: left center;
+        transform-origin: center center;
         opacity: 1;
     }
 }
