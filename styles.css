@@ -54,4 +54,195 @@ html, body{
   border: 1px solid var(--stroke);
   border-radius: 18px;
   padding: 26px 22px;
-  box-shadow: 0 20px 50px va
+  box-shadow: 0 20px 50px var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.cover .card{
+  text-align: center;
+  padding: 34px 22px;
+}
+
+.kicker{
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 10px;
+}
+
+h1{
+  margin: 8px 0 8px;
+  font-size: clamp(28px, 5vw, 44px);
+}
+
+h2{
+  margin: 10px 0 10px;
+  font-size: clamp(22px, 3.6vw, 32px);
+}
+
+p{
+  margin: 10px 0;
+  line-height: 1.55;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.lead{
+  font-size: 17px;
+  color: rgba(255,255,255,0.84);
+}
+
+.sub{
+  margin-top: 10px;
+  color: rgba(255,255,255,0.72);
+}
+
+.dim{
+  color: rgba(255,255,255,0.68);
+}
+
+.quote{
+  color: rgba(255,255,255,0.92);
+  font-style: italic;
+}
+
+.emph{
+  color: rgba(255,255,255,0.95);
+  font-weight: 700;
+}
+
+.btnRow{
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 18px;
+  position: relative;
+}
+
+.btn{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.92);
+  padding: 12px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  font-weight: 650;
+}
+
+.btn:hover{
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(255,255,255,0.26);
+  transform: translateY(-1px);
+}
+
+.btn:active{
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn.primary{
+  background: linear-gradient(135deg, rgba(255,91,138,0.95), rgba(124,219,255,0.85));
+  border-color: rgba(255,255,255,0.14);
+  color: #111;
+}
+
+.btn.primary:hover{
+  filter: brightness(1.03);
+}
+
+.hint{
+  margin-top: 18px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+.ps{
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.18);
+}
+
+.sig{
+  margin-top: 16px;
+  color: rgba(255,255,255,0.80);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hidden{ display:none; }
+
+/* =========================
+   Illustrations + Book feel
+   ========================= */
+
+.page {
+  perspective: 1200px;
+}
+
+.page .card {
+  position: relative;
+  overflow: hidden;
+  transform: rotateY(-7deg) translateY(14px);
+  transform-origin: left center;
+  transition: transform 700ms ease, box-shadow 700ms ease;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.35),
+    0 2px 0 rgba(255,255,255,0.06) inset;
+}
+
+.page.in-view .card {
+  transform: rotateY(0deg) translateY(0);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.40),
+    0 2px 0 rgba(255,255,255,0.08) inset;
+}
+
+/* a subtle "paper edge" */
+.page .card::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 18px;
+  background: linear-gradient(to right, rgba(255,255,255,0.14), rgba(255,255,255,0));
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.illus {
+  margin: 0 0 14px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.illus img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cover .card {
+  transform: none !important;
+}
+
+/* keep text readable on bright images */
+.card h2, .card h1, .card p {
+  text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+}
+
+/* subtle button (for PS) */
+.btn.subtle{
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.btn.subtle:hover{ background: rgba(255,255,255,0.14); }
+
+@media (max-width: 520px) {
+  .illus { border-radius: 14px; }
+  .page .card { transform: rotateY(-5deg) translateY(10px); }
+}
