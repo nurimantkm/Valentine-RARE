@@ -2,56 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Episode: Valentine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>N & G</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Ambient layers -->
   <canvas id="stars"></canvas>
   <canvas id="rain"></canvas>
 
   <main class="story" id="story">
-
     <!-- Page 0 -->
-    <section class="page gate" data-page="0">
+    <section class="page cover" data-page="0">
       <div class="card">
+        <div class="kicker">A tiny book for N &amp; G</div>
         <h1>Would you be my Valentine?</h1>
         <p class="sub">Choose carefully, vampire. 🦇</p>
 
         <div class="btnRow" id="btnRow">
-          <button id="yesBtn" class="btn primary">Yes</button>
-          <button id="noBtn" class="btn ghost" aria-label="No">No</button>
+          <button class="btn primary" id="yesBtn">Yes</button>
+          <button class="btn" id="noBtn">No</button>
         </div>
 
-        <p class="hint">Scroll ↓</p>
+        <div class="hint">Scroll ↓</div>
       </div>
     </section>
 
     <!-- Page 1 -->
     <section class="page" data-page="1">
       <div class="card">
-        <div class="kicker">Page 1</div>
-        <h2>Once upon a time…</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/01_intro.png" alt="Intro illustration" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter I</div>
+        <h2>A girl who time-travels… through feelings</h2>
         <p class="lead">
-          In Scotland, there was a girl people called a vampire —
-          not because she was scary…
-          but because she belonged to the night in a quiet, beautiful way.
+          There was a girl in a castle-quiet place, with Scotland air and wild green hills.
+          Some nights she didn’t time-travel for places…
+          she time-traveled for the exact <span class="emph">emotion</span>.
         </p>
+        <p class="dim">And when she found it, she’d press play on a song that wasn’t invented yet.</p>
       </div>
     </section>
 
     <!-- Page 2 -->
     <section class="page" data-page="2">
       <div class="card">
-        <div class="kicker">Page 2</div>
-        <h2>Her secret gift</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/02_music.png" alt="Music time travel" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter II</div>
+        <h2>The soundtrack</h2>
         <p class="lead">
-          When she missed a feeling… she could slip through time and bring it back.
+          She collected melodies like little secrets —
+          and somehow, Billy’s voice always found her first.
         </p>
         <p class="dim">
-          Sometimes it looked like a song that hadn’t been written yet.
-          And somehow… it always sounded a little like Billie Eilish.
+          People called her a vampire… not because she was scary,
+          but because she had this calm night-magic in her eyes.
         </p>
       </div>
     </section>
@@ -59,15 +66,18 @@
     <!-- Page 3 -->
     <section class="page" data-page="3">
       <div class="card">
-        <div class="kicker">Page 3</div>
-        <h2>The dance</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/03_dance.png" alt="Dancing in the forest" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter III</div>
+        <h2>You look SO free when you dance.</h2>
         <p class="lead">
-          One evening, she danced in a brown dress —
-          and the world didn’t interrupt her.
+          One day she danced in the open air —
+          not performing, not proving… just <span class="emph">existing</span>.
         </p>
         <p class="dim">
-          A deer watched from the trees. Birds turned in slow circles.
-          Even the wind softened, like it was trying not to break the moment.
+          The forest didn’t interrupt. Even the animals kept it subtle,
+          like they were invited guests who knew the rules.
         </p>
       </div>
     </section>
@@ -75,14 +85,18 @@
     <!-- Page 4 -->
     <section class="page" data-page="4">
       <div class="card">
-        <div class="kicker">Page 4</div>
-        <h2>And then… a man noticed.</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/04_watching.png" alt="Watching her dance" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter IV</div>
+        <h2>The moment I entered the story</h2>
         <p class="lead">
-          He didn’t rush in. He didn’t want to ruin the magic.
+          And then… a man appeared — quietly — just watching.
+          Like the world suddenly had a new center.
         </p>
         <p class="dim">
-          He just stood there, watching —
-          like he’d accidentally found something rare.
+          He didn’t stop the dance. He didn’t steal the moment.
+          He just stood there thinking: <span class="quote">“wow.”</span>
         </p>
       </div>
     </section>
@@ -90,19 +104,21 @@
     <!-- Page 5 -->
     <section class="page" data-page="5">
       <div class="card">
-        <div class="kicker">Page 5</div>
-        <h2>First words</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/05_cokmu.png" alt="Meeting and joke" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter V</div>
+        <h2>Çok mu çok?</h2>
         <p class="lead">
-          He stepped closer, gentle as a whisper.
-          <span class="quote">“Selam,”</span> he said.
-          <span class="quote">“You look so free when you dance.”</span>
+          She finally noticed him… and smiled the kind of smile that makes time behave.
         </p>
         <p class="dim">
-          She tilted her head, amused:
+          He tried to speak, but she beat him to it — playful as always:
           <span class="quote">“Çok mu çok?”</span>
-          <br/>
-          He smiled:
-          <span class="quote">“Çok… çok.”</span>
+        </p>
+        <p class="dim">
+          And of course he answered like he meant it:
+          <span class="quote">“Çok.”</span>
         </p>
       </div>
     </section>
@@ -110,31 +126,38 @@
     <!-- Page 6 -->
     <section class="page" data-page="6">
       <div class="card">
-        <div class="kicker">Page 6</div>
-        <h2>A small break</h2>
-        <p class="lead">“I need a break… I get hungry easily.”</p>
-        <p class="dim">
-          The man reached into nowhere —
-          first: a banana 🍌
-          then: dark chocolate 🍫
-          then: a latte ☕
+        <figure class="illus">
+          <img src="assets/illustrations/06_food.png" alt="Banana, dark chocolate, latte" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter VI</div>
+        <h2>Emergency supplies</h2>
+        <p class="lead">
+          Dancing makes her hungry — fast.
+          So he pulled out the most serious toolkit:
+          bananas… dark chocolate… and a latte like a warm spell.
         </p>
-        <p class="tiny">She took them like it was the most normal magic in the world… and smiled.</p>
+        <p class="dim">
+          She didn’t say thank you right away. She just smiled.
+          The kind that says: <span class="quote">“you know me.”</span>
+        </p>
       </div>
     </section>
 
     <!-- Page 7 -->
     <section class="page" data-page="7">
       <div class="card">
-        <div class="kicker">Page 7</div>
-        <h2>Walking & talking</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/07_walk.png" alt="Walking in Scotland" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter VII</div>
+        <h2>Unplanned, but perfect</h2>
         <p class="lead">
-          They walked through Scotland like the streets were holding their secret.
+          They walked with no plan —
+          the best kind of plan.
         </p>
         <p class="dim">
-          Talking. Teasing. Pausing.
-          The kind of closeness that doesn’t ask permission —
-          it just happens… and suddenly you don’t want it to end.
+          Scotland felt like a fairytale that accidentally became real.
+          And somehow, the unplanned meetings were always the nicest ones.
         </p>
       </div>
     </section>
@@ -142,17 +165,17 @@
     <!-- Page 8 -->
     <section class="page" data-page="8">
       <div class="card">
-        <div class="kicker">Page 8</div>
-        <h2>“Let me show you a sky that feels endless.”</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/08_offer.png" alt="Invitation" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter VIII</div>
+        <h2>Come with me</h2>
         <p class="lead">
-          A wind turned the page.
-          Scotland faded into silence —
-          and the desert appeared: Türkmenistan at night.
+          He said: <span class="quote">“Let’s go somewhere the sky is louder than the city.”</span>
         </p>
         <p class="dim">
-          As if the story approved… their clothes changed —
-          Türkmen tradition, warm and beautiful —
-          not a costume… more like destiny.
+          She looked at him like she was taking a note in her head —
+          one of those notes that turn into memories later.
         </p>
       </div>
     </section>
@@ -160,36 +183,27 @@
     <!-- Page 9 -->
     <section class="page" data-page="9">
       <div class="card">
-        <div class="kicker">Page 9</div>
-        <h2>Stars, then rain</h2>
+        <figure class="illus">
+          <img src="assets/illustrations/09_transition01.png" alt="Transition begins" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter IX</div>
+        <h2>The world shifts</h2>
         <p class="lead">
-          Under a sky full of stars, the man whispered:
-          <span class="quote">“I love the view.”</span>
+          The path softened… the air changed…
+          like the story turned a page by itself.
         </p>
         <p class="dim">
-          She smiled:
-          <span class="quote">“Yeah… it’s beautiful. I wish it could rain… just a little.”</span>
+          And the vampire girl? She didn’t fear it.
+          She was used to time traveling — especially through feelings.
         </p>
-        <p class="lead emph">And then — a light rain started.</p>
-        <p class="dim">A hug. A pause. And a kiss.</p>
       </div>
     </section>
 
     <!-- Page 10 -->
-    <section class="page end" data-page="10">
+    <section class="page" data-page="10">
       <div class="card">
-        <div class="kicker">Final</div>
-        <h2>To be continued…</h2>
-
-        <button id="psBtn" class="btn ghost">PS (tap)</button>
-        <p id="psText" class="ps hidden">If you smiled once, you owe me a call.</p>
-
-        <div class="sig">— N &amp; G</div>
-      </div>
-    </section>
-
-  </main>
-
-  <script src="app.js"></script>
-</body>
-</html>
+        <figure class="illus">
+          <img src="assets/illustrations/10_transition02.png" alt="Clothes change to Türkmen style" loading="lazy" />
+        </figure>
+        <div class="kicker">Chapter X</div>
+        <h2>Türkmenland, at ni
