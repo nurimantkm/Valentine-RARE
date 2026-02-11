@@ -1,193 +1,173 @@
-// ---- Core elements
-const story = document.getElementById("story");
-const yesBtn = document.getElementById("yesBtn");
-const noBtn  = document.getElementById("noBtn");
-const btnRow = document.getElementById("btnRow");
-const psBtn  = document.getElementById("psBtn");
-const psText = document.getElementById("psText");
-
-// ---- "No" button dodge
-let dodgeCount = 0;
-const dodgePhrases = [
-  "No",
-  "Are you sure?",
-  "Think again",
-  "Nope 😌",
-  "You’re lying",
-  "Try harder",
-  "😏",
-  "Ok last chance",
-  "Still no?",
-  "👀"
-];
-
-function moveNoButton() {
-  dodgeCount++;
-  const rect = btnRow.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
-  const maxX = rect.width - btnRect.width;
-  const maxY = 60;
-
-  const x = Math.max(0, Math.random() * maxX);
-  const y = (Math.random() * maxY) - (maxY / 2);
-
-  noBtn.style.position = "relative";
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top  = `${y}px`;
-  noBtn.textContent = dodgePhrases[Math.min(dodgeCount, dodgePhrases.length - 1)];
-}
-
-noBtn.addEventListener("mouseenter", moveNoButton);
-noBtn.addEventListener("click", moveNoButton);
-
-// ---- Yes action: scroll to next page
-yesBtn.addEventListener("click", () => {
-  const next = document.querySelector('.page[data-page="1"]');
-  next?.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-// ---- P.S. toggle
-if (psBtn && psText) {
-  psBtn.addEventListener("click", () => {
-    psText.classList.toggle("hidden");
-    psBtn.textContent = psText.classList.contains("hidden") ? "Show P.S." : "Hide P.S.";
-  });
-}
-
-// =====================
-// Ambient canvases
-// =====================
-
+// ===== Background: Stars + Rain =====
 const starsCanvas = document.getElementById("stars");
-const rainCanvas  = document.getElementById("rain");
-const sctx = starsCanvas.getContext("2d");
-const rctx = rainCanvas.getContext("2d");
+const rainCanvas = document.getElementById("rain");
+const storyEl = document.getElementById("story");
 
-function resizeCanvases() {
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  [starsCanvas, rainCanvas].forEach((c) => {
-    c.width  = Math.floor(window.innerWidth * dpr);
-    c.height = Math.floor(window.innerHeight * dpr);
-    c.style.width = "100%";
-    c.style.height = "100%";
-  });
-  sctx.setTransform(dpr,0,0,dpr,0,0);
-  rctx.setTransform(dpr,0,0,dpr,0,0);
+const ctxS = starsCanvas.getContext("2d");
+const ctxR = rainCanvas.getContext("2d");
+
+let W = 0, H = 0;
+function resize() {
+  W = starsCanvas.width = rainCanvas.width = window.innerWidth;
+  H = starsCanvas.height = rainCanvas.height = window.innerHeight;
 }
-window.addEventListener("resize", resizeCanvases);
-resizeCanvases();
+window.addEventListener("resize", resize);
+resize();
 
-// ---- Stars
-const stars = Array.from({ length: 120 }, () => ({
-  x: Math.random() * window.innerWidth,
-  y: Math.random() * window.innerHeight,
+// Stars
+const stars = Array.from({ length: 140 }, () => ({
+  x: Math.random(),
+  y: Math.random(),
   r: Math.random() * 1.6 + 0.2,
-  a: Math.random() * 0.7 + 0.2,
-  tw: Math.random() * 0.02 + 0.005
+  a: Math.random() * 0.6 + 0.2,
+  tw: Math.random() * 0.02 + 0.005,
 }));
 
-function drawStars() {
-  sctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  const p = currentPage();
-
-  // stronger stars after the Turkmen skywatch pages
-  starsCanvas.style.opacity = (p === 0) ? "0.65" : (p >= 11 ? "1" : "0.9");
-
-  for (const st of stars) {
-    st.a += st.tw;
-    if (st.a > 0.95 || st.a < 0.15) st.tw *= -1;
-
-    sctx.beginPath();
-    sctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
-    sctx.fillStyle = `rgba(255,255,255,${st.a})`;
-    sctx.fill();
+function drawStars(t) {
+  ctxS.clearRect(0, 0, W, H);
+  for (const s of stars) {
+    const tw = Math.sin(t * 0.001 + s.x * 10) * s.tw;
+    ctxS.globalAlpha = Math.max(0, Math.min(1, s.a + tw));
+    ctxS.beginPath();
+    ctxS.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    ctxS.fillStyle = "#EAF0FF";
+    ctxS.fill();
   }
-  requestAnimationFrame(drawStars);
+  ctxS.globalAlpha = 1;
 }
-drawStars();
 
-// ---- Rain (soft drizzle normally, heavy on page 12)
-let drops = Array.from({ length: 140 }, () => newDrop());
-function newDrop() {
-  return {
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    l: Math.random() * 16 + 8,
-    v: Math.random() * 6 + 5,
-    a: Math.random() * 0.35 + 0.15
-  };
+// Rain
+let rainIntensity = 0.55; // base opacity handled by CSS; this is density
+let drops = [];
+
+function resetRain() {
+  drops = Array.from({ length: Math.floor(240 * rainIntensity) }, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    l: Math.random() * 18 + 10,
+    v: Math.random() * 7 + 6,
+    a: Math.random() * 0.25 + 0.08,
+  }));
 }
+resetRain();
 
 function drawRain() {
-  rctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  const p = currentPage();
+  ctxR.clearRect(0, 0, W, H);
+  ctxR.lineWidth = 1;
+  ctxR.strokeStyle = "rgba(234,240,255,0.6)";
 
-  // heavy rain on kiss page (12)
-  const intensity = (p === 12) ? 1 : 0.35;
-  rainCanvas.style.opacity = (p >= 10 ? "0.75" : "0.0");
+  for (const d of drops) {
+    ctxR.globalAlpha = d.a;
+    ctxR.beginPath();
+    ctxR.moveTo(d.x, d.y);
+    ctxR.lineTo(d.x, d.y + d.l);
+    ctxR.stroke();
 
-  rctx.lineWidth = 1;
-  for (let i = 0; i < drops.length; i++) {
-    const d = drops[i];
-    rctx.beginPath();
-    rctx.moveTo(d.x, d.y);
-    rctx.lineTo(d.x, d.y + d.l * intensity);
-    rctx.strokeStyle = `rgba(180,220,255,${d.a * intensity})`;
-    rctx.stroke();
+    d.y += d.v;
+    d.x += 0.6;
 
-    d.y += d.v * intensity;
-    d.x += 0.6 * intensity;
-
-    if (d.y > window.innerHeight) drops[i] = newDrop();
+    if (d.y > H) {
+      d.y = -d.l;
+      d.x = Math.random() * W;
+    }
+    if (d.x > W) d.x = 0;
   }
-  requestAnimationFrame(drawRain);
+  ctxR.globalAlpha = 1;
 }
-drawRain();
 
-// =====================
-// Page utilities
-// =====================
-function currentPage() {
+// Animation loop
+function tick(t) {
+  drawStars(t);
+  drawRain();
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+// ===== Gate logic (Yes unlocks story) =====
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+function unlockStory() {
+  document.querySelectorAll(".page.locked").forEach((el) => el.classList.remove("locked"));
+  // jump to first story page nicely
+  const p1 = document.getElementById("p1");
+  if (p1) p1.scrollIntoView({ behavior: "smooth" });
+}
+
+yesBtn.addEventListener("click", () => {
+  unlockStory();
+});
+
+noBtn.addEventListener("mouseenter", () => {
+  // playful "run away" button
+  const maxX = Math.max(0, yesBtn.parentElement.clientWidth - noBtn.offsetWidth);
+  const maxY = 0;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+  noBtn.style.position = "absolute";
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+});
+
+noBtn.addEventListener("click", () => {
+  // gentle tease
+  alert("Nice try 😌");
+});
+
+// ===== Illustrations: load from data-img =====
+function wireIllustrations() {
+  document.querySelectorAll(".page[data-img]").forEach((page) => {
+    const imgPath = page.getAttribute("data-img");
+    const imgEl = page.querySelector("img.ill");
+    if (!imgEl) return;
+    imgEl.dataset.src = `./${imgPath}`;
+  });
+}
+wireIllustrations();
+
+// Lazy load + page fade-in
+const io = new IntersectionObserver(
+  (entries) => {
+    for (const e of entries) {
+      const page = e.target;
+      if (e.isIntersecting) {
+        page.classList.add("in-view");
+        // Load illustration
+        const img = page.querySelector("img.ill");
+        if (img && !img.src && img.dataset.src) {
+          img.src = img.dataset.src;
+        }
+      }
+    }
+  },
+  { root: storyEl, threshold: 0.25 }
+);
+
+document.querySelectorAll(".page").forEach((p) => io.observe(p));
+
+// ===== Rain intensity bump on kiss page =====
+storyEl.addEventListener("scroll", () => {
+  const current = getCurrentPage();
+  // Make rain stronger around page 12 (kiss)
+  const target = current >= 12 ? 0.95 : 0.55;
+  rainIntensity += (target - rainIntensity) * 0.06;
+  if (drops.length !== Math.floor(240 * rainIntensity)) {
+    resetRain();
+  }
+});
+
+function getCurrentPage() {
+  // pick the page closest to top
   const pages = Array.from(document.querySelectorAll(".page"));
-  const centerY = window.innerHeight / 2;
-  let best = { page: 0, dist: Infinity };
-
-  for (const el of pages) {
-    const rect = el.getBoundingClientRect();
-    const elCenter = rect.top + rect.height / 2;
-    const dist = Math.abs(elCenter - centerY);
-    if (dist < best.dist) {
-      best = { page: Number(el.dataset.page || 0), dist };
+  let best = 0;
+  let bestDist = Infinity;
+  for (const p of pages) {
+    const r = p.getBoundingClientRect();
+    const dist = Math.abs(r.top);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = parseInt(p.dataset.page || "0", 10);
     }
   }
-  return best.page;
+  return best;
 }
-
-// --- Book-like page entrance + image preloading ---
-const pageEls = Array.from(document.querySelectorAll(".page"));
-const pageIO = new IntersectionObserver((entries) => {
-  for (const e of entries) {
-    if (e.isIntersecting) e.target.classList.add("in-view");
-    else e.target.classList.remove("in-view");
-  }
-}, { threshold: 0.35 });
-
-pageEls.forEach((p) => pageIO.observe(p));
-
-const preload = (src) => {
-  if (!src) return;
-  const img = new Image();
-  img.src = src;
-};
-
-const preloadAround = () => {
-  const p = currentPage();
-  const cur = document.querySelector(`.page[data-page="${p}"] img`);
-  const nxt = document.querySelector(`.page[data-page="${p+1}"] img`);
-  preload(cur?.getAttribute("src"));
-  preload(nxt?.getAttribute("src"));
-};
-
-// run once and on scroll
-preloadAround();
-story?.addEventListener("scroll", preloadAround, { passive: true });
