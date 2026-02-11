@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
-    const intro = document.getElementById('intro');
+    const intro = document.getElementById('introScreen');
     const bookContainer = document.getElementById('bookContainer');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
