@@ -1,5 +1,5 @@
 let currentSpread = 1;
-const totalSpreads = 16;
+const totalSpreads = 17;
 let noButtonEscapes = 0;
 
 // Update page counter
@@ -26,9 +26,9 @@ function showSpread(spreadNum) {
     document.getElementById('prevBtn').style.display = currentSpread === 1 ? 'none' : 'flex';
     document.getElementById('nextBtn').style.display = currentSpread === totalSpreads ? 'none' : 'flex';
     
-    // Show rain on page 15 (kiss scene)
+    // Show rain on page 16 (kiss scene)
     const rainContainer = document.querySelector('.rain-container');
-    if (currentSpread === 15) {
+    if (currentSpread === 16) {
         rainContainer.classList.add('active');
     } else {
         rainContainer.classList.remove('active');
