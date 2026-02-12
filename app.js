@@ -86,5 +86,21 @@ noBtn.addEventListener('mouseover', () => {
     }
 });
 
+// Create rain effect
+function createRain() {
+    const rainContainer = document.querySelector('.rain-container');
+    const numberOfDrops = 100;
+    
+    for (let i = 0; i < numberOfDrops; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'raindrop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        rainContainer.appendChild(drop);
+    }
+}
+
 // Initialize
 updatePageCounter();
+createRain();

@@ -352,9 +352,11 @@ body {
 
 .page p {
     color: var(--text-light);
-    line-height: 1.8;
-    margin-bottom: 12px;
-    font-size: 1em;
+    line-height: 2;
+    margin-bottom: 18px;
+    font-size: 1.05em;
+    text-align: justify;
+    text-indent: 0;
 }
 
 .page strong {
@@ -365,7 +367,7 @@ body {
 .page-illustration {
     width: 100%;
     max-width: 100%;
-    max-height: 400px;
+    max-height: 550px;
     height: auto;
     object-fit: contain;
     border-radius: 10px;
@@ -417,11 +419,11 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.nav-left {
+.prev-btn {
     left: 20px;
 }
 
-.nav-right {
+.next-btn {
     right: 20px;
 }
 
@@ -453,7 +455,7 @@ body {
 }
 
 /* ===== RAIN EFFECT ===== */
-.rain {
+.rain-container {
     position: fixed;
     inset: 0;
     pointer-events: none;
@@ -462,7 +464,7 @@ body {
     transition: opacity 1s ease;
 }
 
-.rain.active {
+.rain-container.active {
     opacity: 1;
 }
 
@@ -518,7 +520,7 @@ body {
     }
     
     .page-illustration {
-        max-height: 300px;
+        max-height: 400px;
         width: 100%;
         object-fit: contain;
     }
@@ -539,11 +541,11 @@ body {
         font-size: 1.2em;
     }
     
-    .nav-left {
+    .prev-btn {
         left: 10px;
     }
     
-    .nav-right {
+    .next-btn {
         right: 10px;
     }
     
@@ -576,4 +578,26 @@ body {
         height: 45px;
         font-size: 1.1em;
     }
+}
+
+/* ===== DIALOGUE STYLING ===== */
+.page p em {
+    font-style: italic;
+    color: var(--text-light);
+}
+
+/* Dialogue quotes styling */
+.page p {
+    quotes: """ """ "'" "'";
+}
+
+/* First paragraph in a section - no indent */
+.page-content > p:first-of-type {
+    text-indent: 0;
+}
+
+/* Centered text for special moments */
+.page p[style*="text-align: center"] {
+    text-align: center !important;
+    text-indent: 0 !important;
 }
