@@ -239,7 +239,7 @@ body {
     will-change: opacity, transform, filter;
 }
 
-.page-spread.current {
+.page-spread.active {
     opacity: 1;
     transform: scale(1) translateZ(0);
     filter: blur(0);
