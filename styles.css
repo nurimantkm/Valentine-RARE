@@ -411,12 +411,17 @@ body {
     background: rgba(212, 175, 55, 0.9);
     border: 2px solid var(--gold);
     color: white;
-    font-size: 1.5em;
+    font-size: 1.8em;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     z-index: 100;
     backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
 }
 
 .prev-btn {
@@ -428,8 +433,8 @@ body {
 }
 
 .nav-btn:hover:not(:disabled) {
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 5px 30px var(--dreamy-glow);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 40px var(--dreamy-glow);
     background: var(--gold);
 }
 
